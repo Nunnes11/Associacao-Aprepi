@@ -1,0 +1,53 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-y: hidden; /* remove scroll vertical */
+    overflow-x: hidden; /* garante que nada transborde na horizontal */
+}
+
+body {
+    background-color: #004dff;
+    margin: 0;
+    padding: 0;
+}
+
+.main-content {
+    padding-top: 50px; /* ou ajuste conforme a altura exata da navbar */
+}
+
+/* Apenas a área central da Home */
+.centraliza-home {
+    height: calc(100vh - 60px); /* Ajuste conforme altura do menu */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Seletores para alterar a cor das páginas de modo independente */
+.about-color {
+    background-color: #f3f5f8;
+}
+
+.contact-color {
+    background-color: #f3f5f8;
+}
+
+.register-color {
+    background-color: #87a4cf;
+}
+
+.list_users-color {
+    background-color: #e6ebe4;
+}
+
+.cadastro-imagem {
+    flex: 2;
+    background-image: url("/media/img/Aprepi.png");
+    background-size: cover;
+    background-position: right;
+    background-position: right center;
+    height: 100vh;
+}
+
+

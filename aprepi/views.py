@@ -1,0 +1,137 @@
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from django.contrib.auth.hashers import check_password
+from django.templatetags.static import static
+from django.contrib.auth import logout
+from .models import Register_Users, Recent_News, Testimonials
+from .forms import RegisterUsersForm
+
+def home(request):
+    return render(request, 'aprepi/home.html')
+
+def about(request):
+    return render(request, 'aprepi/about.html')
+
+def contact(request):
+    return render(request, 'aprepi/contact.html')
+
+def register_users(request):
+    if request.method == 'POST':
+        form = RegisterUsersForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Cadastro realizado com sucesso!')
+            return redirect('home')
+    else:
+        form = RegisterUsersForm()
+    return render(request, 'aprepi/register_users.html', {'form':form})
+
+def list_users(request):
+    users = Register_Users.objects.all()
+    return render(request, 'aprepi/list_users.html', {'users': users})
+
+def update_user(request, id):
+    user = get_object_or_404(Register_Users, id=id)
+
+    if request.method == 'POST':
+        form = RegisterUsersForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('list_users')
+    else:
+        form = RegisterUsersForm(instance=user)
+
+    return render(request, 'aprepi/update_user.html', {'form': form})
+
+def delete_user(request, id):
+    user = get_object_or_404(Register_Users, id=id)
+
+    if request.method == 'POST':
+        user.delete()
+        return redirect('list_users')
+    
+    return render(request, 'aprepi/delete_user.html', {'user': user})
+
+def archive_user(request, id):
+    user = get_object_or_404(Register_Users, id=id)
+    user.is_archived = True
+    user.save()
+    return redirect('list_users')
+
+def list_patients(request):
+    patients = Register_Users.objects.all()
+    return render(request, 'aprepi/list_patients.html', {'patients': patients})
+
+def update_patient(request):
+    return render(request, 'aprepi/update_patient.html')
+
+def delete_patient(request):
+    return render(request, 'aprepi/delete_patient.html')
+
+'''Função para implementar o LOGIN'''
+def login(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        user = Register_Users.objects.filter(email=email).first()
+
+        if user and check_password(password, user.password):
+            request.session['user_id'] = user.id
+            request.session['user_name'] = user.name
+            return redirect('reception_page')
+        else:
+            messages.error(request, 'E-mail ou senha inválidos.')
+    
+    return render(request, 'aprepi/login.html')
+
+'''Função para implementar o LOGOUT, retornando para a HOME'''
+def logout(request):
+    request.session.flush()
+    return redirect('home')
+
+
+def reception_page(request):
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')
+    
+    user= Register_Users.objects.get(id=user_id)
+    first_name = user.name.split()[0]
+
+    if user.avatar:
+        avatar_url = user.avatar.url
+    else:
+        avatar_url = '/media/avatars/avatar.png'
+
+    news = Recent_News.objects.all().order_by('-created_at')[:4]
+    testimonials = Testimonials.objects.all().order_by('-id')[:4]
+
+    return render(request, 'aprepi/reception_page.html', {
+        'user_name': first_name,
+        'user_avatar_url': avatar_url,
+        'news': news,
+        'testimonials': testimonials
+    })
+
+
+def news_list(request):
+    news = Recent_News.objects.all().order_by('id')
+    return render(request, 'aprepi/news_list.html', {'news': news})
+
+
+def new_detail(request, id):
+    new = get_object_or_404(Recent_News, id=id)
+    return render(request, 'aprepi/new_detail.html', {'new': new})
+
+
+def testimonials_list(request):
+    testimonials = Testimonials.objects.all().order_by('-id')
+    return render(request, 'aprepi/testimonials_list.html', {'testimonials': testimonials})
+
+
+def testimonial_detail(request, id):
+    testimonial = get_object_or_404(Testimonials, id=id)
+    return render(request, 'aprepi/testimonial_detail.html', {'testimonial': testimonial})
+
+

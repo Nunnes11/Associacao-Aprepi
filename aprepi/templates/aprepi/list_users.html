@@ -1,0 +1,33 @@
+{% extends 'aprepi/base_cadastro.html' %}
+{% load static %}
+
+{% block body_class %}list_users-color{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Usuários cadastrados</h2>
+
+    <div class="row">
+        {% for user in users %}
+            {% if not user.is_archived %}
+            <div class="col-md-6 mb-3">
+                <div class="p-3" style="background-color:rgb(216, 223, 214); border-radius: 5px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h5 style="font-weight: bold;">{{ user.name }}</h5>
+                        <p>Nascimento: {{ user.birth_date|date:"d/m/Y" }}</p>
+                        <p>Cidade: {{ user.city }}</p>
+                        <p>E-mail: {{ user.email }}</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <a href="{% url 'update_user' user.id %}" class="btn btn-success btn-sm w-100 mb-1">Editar</a><br>
+                        <a href="{% url 'delete_user' user.id %}" class="btn btn-danger btn-sm w-100 mb-1">Excluir</a><br>
+                        <a href="{% url 'archive_user' user.id %}" class="btn btn-primary btn-sm w-100">Arquivar</a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
+

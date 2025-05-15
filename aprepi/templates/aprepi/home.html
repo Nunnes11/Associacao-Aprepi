@@ -1,0 +1,20 @@
+{% comment %} {% extends 'aprepi/base.html' %} {% endcomment %}
+{% load static %}
+
+<link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/style_site.css' %}" rel="stylesheet">
+<link href="{% static 'css/layout.css' %}" rel="stylesheet">
+
+<link rel="icon" href="{% static 'favicon/favicon.ico' %}" type="image/x-icon">
+
+{% include 'aprepi/menu.html' %}
+
+{% block content %}
+
+    <div class="centraliza-home" style="margin-top: -50px;">
+        <img src="{% static 'img/home-img.png' %}" alt="APREPI" style="width: 450px;">
+    </div>
+
+{% endblock content %}
+    
+
