@@ -1,0 +1,35 @@
+/* CSS para o link APREPI abrir 'dropdown' de modo automático ao passar o mouse*/
+  .dropdown:hover > .dropdown-menu {
+    display: block;
+    margin-top: 0;
+  }
+
+  /* CSS para o 'submenu lateral' do 'sublink' TRANSPARÊNCIA no link APREPI */
+  .dropdown-submenu {
+    position: relative;
+  }
+
+  .dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+    display: none;
+  }
+
+  .dropdown-submenu:hover > .dropdown-menu {
+    display: block;
+  }
+
+  /* CSS para ajuste de cores do 'dropdown' */
+  .dropdown-menu {
+  background-color: #e6f0ff; /* azul claro */
+}
+
+.dropdown-menu .dropdown-item {
+  color: #003366; /* azul escuro */
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #cce0ff; /* azul um pouco mais escuro ao passar o mouse */
+  color: #000;
+}

@@ -67,7 +67,7 @@ class Testimonials(models.Model):
         blank=True,
         null=True
     )
-    testimonial = models.TextField(max_length=250, verbose_name='Seu depoimento')
+    testimonial = models.TextField(verbose_name='Seu depoimento')
     created_at = models.DateTimeField(auto_now_add=True)
 
     # Sobrescrevendo o 'método save' para o campo 'image'

@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.hashers import make_password
-from .models import Register_Users
+from .models import Register_Users, Testimonials
 
 class RegisterUsersForm(forms.ModelForm):
     '''Campo adicional que não será salvo no banco de dados'''
@@ -33,3 +33,20 @@ class RegisterUsersForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+    
+class TestimonialsForm(forms.ModelForm):
+     class Meta:
+          model = Testimonials
+          fields = ['name', 'age', 'city', 'image', 'testimonial']
+          widgets = {
+               'name': forms.TextInput(attrs={'class': 'form-control'}),
+               'age': forms.NumberInput(attrs={'class': 'form-control'}),
+               'city': forms.TextInput(attrs={'class': 'form-control'}),
+               'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+               'testimonial': forms.Textarea(attrs={
+                    'class': 'form-control',
+                    'rows': 6,
+                    'placeholder': 'Escreva seu depoimento'
+                }),
+          }
+     

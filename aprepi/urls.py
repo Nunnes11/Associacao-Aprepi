@@ -23,6 +23,7 @@ urlpatterns = [
     path('new_detail/<int:id>/', views.new_detail, name='new_detail'),
     path('testimonials_list', views.testimonials_list, name='testimonials_list'),
     path('testimonial_detail/<int:id>', views.testimonial_detail, name='testimonial_detail'),
+    path('create_testimonial', views.create_testimonial, name='create_testimonial'),
 
 ]
  

@@ -10,9 +10,13 @@
       <div class="col-md-3 mb-4">
         <div class="card h-100">
           {% if t.image %}
-            <img src="{{ t.image.url }}" class="card-img-top" alt="Imagem de {{ t.name }}">
+            <img src="{{ t.image.url }}" class="card-img-top" alt="Imagem de {{ t.name }}"
+            class="card-img-top img-fluid rounded-top"
+            style="height: 300px; object-fit: cover;" />
           {% else %}
-            <img src="{% static 'img/avatar.png' %}" class="card-img-top" alt="Avatar padrão">
+            <img src="{% static 'img/avatar.png' %}" class="card-img-top" alt="Avatar padrão"
+            class="card-img-top img-fluid rounded-top"
+            style="height: 300px; object-fit: cover;" />
           {% endif %}
           <div class="card-body text-center">
             <h5 class="card-title">{{ t.name }}</h5>

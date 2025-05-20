@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password
-from django.templatetags.static import static
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import user_passes_test
+from django.templatetags.static import static
 from .models import Register_Users, Recent_News, Testimonials
-from .forms import RegisterUsersForm
+from .forms import RegisterUsersForm, TestimonialsForm
+from .decorators import is_patient
+from datetime import date
 
 def home(request):
     return render(request, 'aprepi/home.html')
@@ -129,9 +132,45 @@ def testimonials_list(request):
     testimonials = Testimonials.objects.all().order_by('-id')
     return render(request, 'aprepi/testimonials_list.html', {'testimonials': testimonials})
 
-
+# Função que mostra o depoimento de cada paciente
 def testimonial_detail(request, id):
     testimonial = get_object_or_404(Testimonials, id=id)
     return render(request, 'aprepi/testimonial_detail.html', {'testimonial': testimonial})
+
+
+def calcular_idade(birth_date):
+    today = date.today()
+    return today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
+
+
+# Função para a 'Página de Depoimento'
+def create_testimonial(request):
+    user_id = request.session.get('user_id')
+
+    if not user_id:
+        return redirect('login')
+    
+    try:
+        user = Register_Users.objects.get(id=user_id)
+    except Register_Users.DoesNotExist:
+        return redirect('login')
+    
+    if not user.is_patient:
+        return redirect('reception_page') # Não é paciente.
+    
+    if request.method == 'POST':
+        form = TestimonialsForm(request.POST, request.FILES)
+        if form.is_valid():
+            testimonial = form.save(commit=False)
+            testimonial.name = user.name
+            testimonial.age = calcular_idade(user.birth_date)
+            testimonial.city = user.city
+            testimonial.avatar = user.avatar
+            testimonial.save()
+            return redirect('reception_page')
+    else:
+        form = TestimonialsForm()
+    return render(request, 'aprepi/create_testimonial.html', {'form': form})
+
 
 
