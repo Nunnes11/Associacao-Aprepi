@@ -25,5 +25,7 @@ urlpatterns = [
     path('testimonial_detail/<int:id>', views.testimonial_detail, name='testimonial_detail'),
     path('create_testimonial', views.create_testimonial, name='create_testimonial'),
 
+    path('history/', views.history, name='history'),
+
 ]
  

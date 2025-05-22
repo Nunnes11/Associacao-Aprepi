@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Register_Users, Recent_News, Testimonials
+from .models import Register_Users, Recent_News, Testimonials, History
 from django.utils.html import format_html
 
 @admin.register(Register_Users)
@@ -35,4 +35,9 @@ class TestimonialsAdmin(admin.ModelAdmin):
             )
         return "-"
     image_tag.short_description = 'Imagem'
+
+
+@admin.register(History)
+class HistoryAdmin(admin.ModelAdmin):
+    list_display = ['name', 'image', 'description']
 

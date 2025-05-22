@@ -93,3 +93,30 @@ class Testimonials(models.Model):
         verbose_name_plural = 'Depoimentos'
         ordering = ['-created_at']
 
+
+class History(models.Model):
+    name = models.CharField(max_length=150, verbose_name='Nome')
+    image = models.ImageField(upload_to='history/', verbose_name='Imagem', blank=True, null=True)
+    description = models.TextField(verbose_name='Descrição', blank=True, null=True)
+
+    # Sobrescrevendo o 'método save' para o campo 'image'
+    def save(self, *args, **kwargs):
+        if self.pk:
+            old_image = History.objects.get(pk=self.pk).image
+            if old_image and old_image != self.image:
+                if os.path.isfile(old_image.path):
+                    os.remove(old_image.path)
+        super().save(*args, **kwargs)
+
+    # Sobrescrevendo o 'método delete' para o campo 'image'
+    def delete(self, *args, **kwargs):
+        if self.image and os.path.isfile(self.image.path):
+            os.remove(self.image.path)
+            super().delete(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name = 'história'
+        verbose_name_plural = 'histórias'
