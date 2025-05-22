@@ -2,7 +2,6 @@
     background-color: #004dff;
 }
 
-
 /* Links e Sublinks da navbar da 'Página Principal' do site (reception_page.html)*/
 /* CSS para o link APREPI abrir 'dropdown' de modo automático ao passar o mouse*/
   .dropdown:hover > .dropdown-menu {

@@ -1,6 +1,10 @@
 from django.db import models
+from pdf2image import convert_from_path
+from django.core.files.base import ContentFile
+from io import BytesIO
 import os
 
+# Modelo que representa um 'Registro de usuários'
 class Register_Users(models.Model):
     name = models.CharField(max_length=150, verbose_name='Nome')
     birth_date = models.DateField(verbose_name='Data de nascimento')
@@ -26,7 +30,7 @@ class Register_Users(models.Model):
         verbose_name = 'registro de usuário'
         verbose_name_plural = 'registros de usuários'
 
-# Modelo para o campo 'Notícias Recentes'
+# Modelo que representa o campo 'Notícias Recentes'
 class Recent_News(models.Model):
     title = models.CharField(max_length=150, verbose_name='Título')
     image = models.ImageField(upload_to='news/', verbose_name='Imagem')
@@ -57,6 +61,7 @@ class Recent_News(models.Model):
         verbose_name_plural = 'notícias recentes'
 
 
+# Modelo que representa o campo 'Depoimentos'
 class Testimonials(models.Model):
     name = models.CharField(max_length=150, verbose_name='Nome')
     age = models.IntegerField(verbose_name='Idade')
@@ -94,6 +99,7 @@ class Testimonials(models.Model):
         ordering = ['-created_at']
 
 
+# Modelo que representa o sublink 'História(da Associação)'
 class History(models.Model):
     name = models.CharField(max_length=150, verbose_name='Nome')
     image = models.ImageField(upload_to='history/', verbose_name='Imagem', blank=True, null=True)
@@ -120,3 +126,37 @@ class History(models.Model):
     class Meta:
         verbose_name = 'história'
         verbose_name_plural = 'histórias'
+
+# Modelo que representa o sublink 'Documentos' na seção 'Transparência'(link APREPI)
+class Documents(models.Model):
+    title = models.CharField(max_length=150, verbose_name='Título')
+    file = models.FileField(upload_to='files/', verbose_name='Arquivo')
+    thumbnail = models.ImageField(upload_to='thumbnails/', blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        if self.file and not self.thumbnail:
+            # Caminho do PDF salvo
+            pdf_path = self.file.path
+
+            # Converte a primeira página do PDF em imagem
+            images = convert_from_path(pdf_path, first_page=1, last_page=1)
+            if images:
+                img_io = BytesIO()
+                images[0].save(img_io, format='PNG')
+
+                # Salva como ImageField
+                img_name = os.path.splitext(os.path.basename(self.file.name))[0] + '.png'
+                self.thumbnail.save(img_name, ContentFile(img_io.getvalue()), save=False)
+                super().save(update_fields=['thumbnail'])
+
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name = 'documento'
+        verbose_name_plural = 'documentos'
+
+
+

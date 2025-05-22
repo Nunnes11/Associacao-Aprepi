@@ -41,6 +41,12 @@ body {
     background-color: #e6ebe4;
 }
 
+.bg-documents {
+  background-color: #b2bcd4;
+}
+
+
+
 .cadastro-imagem {
     flex: 2;
     background-image: url("/media/img/Aprepi.png");

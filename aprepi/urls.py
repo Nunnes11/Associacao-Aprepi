@@ -26,6 +26,6 @@ urlpatterns = [
     path('create_testimonial', views.create_testimonial, name='create_testimonial'),
 
     path('history/', views.history, name='history'),
-
+    path('documents/', views.documents, name='documents'),
 ]
  

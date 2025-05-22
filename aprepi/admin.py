@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Register_Users, Recent_News, Testimonials, History
+from .models import Register_Users, Recent_News, Testimonials, History, Documents
 from django.utils.html import format_html
 
 @admin.register(Register_Users)
@@ -40,4 +40,17 @@ class TestimonialsAdmin(admin.ModelAdmin):
 @admin.register(History)
 class HistoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'image', 'description']
+
+
+@admin.register(Documents)
+class DocumentsAdmin(admin.ModelAdmin):
+    list_display = ['title', 'file', 'thumbnail_preview']
+    readonly_fields = ['thumbnail']  # Impede edição manual
+
+    def thumbnail_preview(self, obj):
+        if obj.thumbnail:
+            return format_html('<img src="{}" width="60"/>', obj.thumbnail.url)
+        return "Nenhuma miniatura"
+
+    thumbnail_preview.short_description = "Miniatura"
 
