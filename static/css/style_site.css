@@ -1,6 +1,46 @@
+/* Seletores para definição de cores próprias em páginas particulares*/
 .bg-nav {
-    background-color: #004dff;
+    background-color: #004dff; /* define a cor da navbar na 'Página Principal'*/
 }
+
+.about-color {
+    background-color: #f3f5f8;
+}
+
+.contact-color {
+    background-color: #f3f5f8;
+}
+
+.register-color {
+    background-color: #87a4cf; /* define a cor do background na página 'Cadastro'*/
+}
+
+.list_users-color {
+    background-color: #97f0f0;
+}
+
+.bg-documents {
+  background-color: #b2bcd4; /* define a cor do background na página 'Documentos'*/
+}
+
+/* Insere IMAGEM na página de CADASTRO*/
+.cadastro-imagem {
+    flex: 2;
+    background-image: url("/media/img/Aprepi.png");
+    background-size: cover;
+    background-position: right;
+    background-position: right center;
+    height: 100vh;
+}
+
+/* Estrutura para delimitar a largura da navbar na 'Página Principal (reception_page.html)'*/
+.navbar.fixed-top {
+  max-width: 1140px; /* ou 100% se quiser responsivo */
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+
 
 /* Links e Sublinks da navbar da 'Página Principal' do site (reception_page.html)*/
 /* CSS para o link APREPI abrir 'dropdown' de modo automático ao passar o mouse*/
@@ -38,3 +78,5 @@
   background-color: #cce0ff; /* azul um pouco mais escuro ao passar o mouse */
   color: #000;
 }
+
+

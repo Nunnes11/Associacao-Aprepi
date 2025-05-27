@@ -4,6 +4,7 @@
 {% block body_class %}list_users-color{% endblock %}
 
 {% block content %}
+<link href="{% static 'css/style_site.css' %}" rel="stylesheet" />
 <div class="container mt-4">
     <h2 class="mb-4">Usuários cadastrados</h2>
 
@@ -11,7 +12,7 @@
         {% for user in users %}
             {% if not user.is_archived %}
             <div class="col-md-6 mb-3">
-                <div class="p-3" style="background-color:rgb(216, 223, 214); border-radius: 5px; display: flex; justify-content: space-between; align-items: center;">
+                <div class="p-3; border-radius: 5px; display: flex; justify-content: space-between; align-items: center;">
                     <div>
                         <h5 style="font-weight: bold;">{{ user.name }}</h5>
                         <p>Nascimento: {{ user.birth_date|date:"d/m/Y" }}</p>

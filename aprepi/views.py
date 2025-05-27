@@ -4,7 +4,7 @@ from django.contrib.auth.hashers import check_password
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import user_passes_test
 from django.templatetags.static import static
-from .models import Register_Users, Recent_News, Testimonials, History, Documents
+from .models import Register_Users, Recent_News, Testimonials, History, Documents, Directors
 from .forms import RegisterUsersForm, TestimonialsForm
 from .decorators import is_patient
 from datetime import date
@@ -181,6 +181,10 @@ def history(request):
 def documents(request):
     documents = Documents.objects.all()
     return render(request, 'aprepi/documents.html', {'documents': documents})
+
+def director(request):
+    directors = Directors.objects.all()
+    return render(request, 'aprepi/directors.html', {'directors': directors})
 
 
 

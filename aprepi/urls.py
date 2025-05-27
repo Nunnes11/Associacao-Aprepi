@@ -27,5 +27,6 @@ urlpatterns = [
 
     path('history/', views.history, name='history'),
     path('documents/', views.documents, name='documents'),
+    path('director/', views.director, name='director'),
 ]
  

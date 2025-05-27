@@ -24,37 +24,7 @@ body {
     justify-content: center;
 }
 
-/* Seletores para alterar a cor das páginas de modo independente */
-.about-color {
-    background-color: #f3f5f8;
-}
 
-.contact-color {
-    background-color: #f3f5f8;
-}
-
-.register-color {
-    background-color: #87a4cf;
-}
-
-.list_users-color {
-    background-color: #e6ebe4;
-}
-
-.bg-documents {
-  background-color: #b2bcd4;
-}
-
-
-
-.cadastro-imagem {
-    flex: 2;
-    background-image: url("/media/img/Aprepi.png");
-    background-size: cover;
-    background-position: right;
-    background-position: right center;
-    height: 100vh;
-}
 
 
 
