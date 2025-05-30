@@ -5,32 +5,19 @@
 
 {% block content %}
   <div class="container">
-    {% for history in historys %}
-      {% if forloop.counter|divisibleby:2 %}
-        <div class="row featurette mb-5 p-3 shadow">
-          <div class="col-md-7">
-            <h2 class="featurette-heading fw-normal lh-1">{{ history.name }}</h2>
-            <p class="lead">{{ history.description|linebreaks }}</p>
-          </div>
-          <div class="col-md-5">
-            {% if history.image %}
-              <img src="{{ history.image.url }}" alt="{{ history.name }}" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="400" height="400" />
-            {% endif %}
-          </div>
-        </div>
-      {% else %}
-        <div class="row featurette mb-5 p-3 shadow">
-          <div class="col-md-7 order-md-2">
-            <h2 class="featurette-heading fw-normal lh-1">{{ history.name }}</h2>
-            <p class="lead">{{ history.description|linebreaks }}</p>
-          </div>
-          <div class="col-md-5 order-md-1">
-            {% if history.image %}
-              <img src="{{ history.image.url }}" alt="{{ history.name }}" width="400" height="400" />
-            {% endif %}
-          </div>
-        </div>
-      {% endif %}
+      {% for history in historys %}
+      <div class="card mb-4 p-4 shadow">
+        <h2 class="fw-bold">{{ history.name }}</h2>
+
+      <p class="text-justify">
+          {% if history.image %}
+            <img src="{{ history.image.url }}" alt="{{ history.name }}"
+                 class="img-fluid float-start me-3 mb-2"
+                 style="width: 300px; height: auto;">
+          {% endif %}
+          {{ history.description|linebreaksbr }}
+        </p>
+      </div>
     {% endfor %}
 
     <div class="d-flex flex-column align-items-center">

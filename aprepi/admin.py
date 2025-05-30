@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Register_Users, Recent_News, Testimonials, History, Documents, Directors
+from .models import Register_Users, Recent_News, Testimonials, History, Documents, Directors, About
 from django.utils.html import format_html
 
 @admin.register(Register_Users)
@@ -57,4 +57,9 @@ class DocumentsAdmin(admin.ModelAdmin):
 
 @admin.register(Directors)
 class DirectorsAdmin(admin.ModelAdmin):
+    list_display = ['name', 'image', 'description']
+
+
+@admin.register(About)
+class AboutAdmin(admin.ModelAdmin):
     list_display = ['name', 'image', 'description']

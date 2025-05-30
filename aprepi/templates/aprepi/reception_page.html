@@ -10,6 +10,8 @@
 
 <link rel="icon" href="{% static 'favicon/favicon.ico' %}" type="image/x-icon" />
 
+
+
 <nav class="navbar fixed-top navbar-expand-lg bg-nav" data-bs-theme="dark">
   <div class="container">
     <img src="{% static 'logo/logo.png' %}" alt="APREPI" style="width: 90px;" class="navbar-brand" />
@@ -61,9 +63,11 @@
         <a href="{% url 'logout' %}" class="btn btn-primary me-2">LOGOUT</a>
 
         <!-- Bloco Avatar + mensagem -->
-        <div class="d-flex flex-column align-items-center">
+        <div class="d-flex flex-column align-items-center text-center">
           <img src="{{ user_avatar_url }}" alt="Avatar" class="rounded-circle" style="width: 40px; height: 40px;" />
-          <span class="navbar-text text-white small">Olá, {{ user_name }}!</span>
+          <span class="text-white small mt-1">
+            <div class="fw-semibold" style="font-size: 0.8rem;">Bem-vindo(a)</div>
+            <div class="fw-bold" style="font-size: 0.9rem;">{{ user_name }}!</div>
         </div>
       </div>
     </div>
@@ -71,8 +75,8 @@
 </nav>
 
 <!-- Carrossel -->
-<div class="container">
-  <div class="main-content" style="padding-top: 90px;">
+<div class="container bg-page" style="padding-top: 90px; padding-bottom: 0;">
+  <div class="main-content">
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="8000">
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -103,8 +107,8 @@
 </div>
 
 <!-- HTML para a seção 'Notícias Recentes' -->
-<div class="container">
-  <h2 class="mt-5">Notícias Recentes</h2>
+<div class="container bg-page" style="padding-top: 0; padding-bottom: 0;">
+  <h2 class="pt-4">Notícias Recentes</h2>
   <div class="row">
     {% for new in news %}
       <div class="col-md-3 mt-3">
@@ -126,8 +130,8 @@
 </div>
 
 <!-- HTML para a seção 'Depoimentos dos Pacientes' -->
-<section class="container mt-5">
-  <h2 class="text-center mb-4">Depoimentos</h2>
+<div class="container bg-page" style="padding-top: 0; padding-bottom: 0;">
+  <h2 class="text-center pt-4">Depoimentos</h2>
   <div class="row">
     {% for t in testimonials %}
       <div class="col-md-3 mb-4">
@@ -159,4 +163,4 @@
 
   <!-- Incluir o RODAPÉ -->
   {% include 'aprepi/rodape.html' %}
-</section>
+</div>

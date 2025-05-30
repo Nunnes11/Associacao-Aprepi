@@ -15,22 +15,16 @@
     background-color: #87a4cf; /* define a cor do background na página 'Cadastro'*/
 }
 
+.bg-page {
+  background-color: #B0C4DE;
+}
+
 .list_users-color {
     background-color: #97f0f0;
 }
 
 .bg-documents {
   background-color: #b2bcd4; /* define a cor do background na página 'Documentos'*/
-}
-
-/* Insere IMAGEM na página de CADASTRO*/
-.cadastro-imagem {
-    flex: 2;
-    background-image: url("/media/img/Aprepi.png");
-    background-size: cover;
-    background-position: right;
-    background-position: right center;
-    height: 100vh;
 }
 
 /* Estrutura para delimitar a largura da navbar na 'Página Principal (reception_page.html)'*/
@@ -41,8 +35,13 @@
   right: 0;
 }
 
+/* Define o tamanho e a opacidade da imagem na página 'Cadastro'*/
+.img-opacity {
+  opacity: 0.3;
+  filter: grayscale(20%) brightness(120%);
+}
 
-/* Links e Sublinks da navbar da 'Página Principal' do site (reception_page.html)*/
+/* Links e Sublinks da navbar na 'Página Principal' do site (reception_page.html)*/
 /* CSS para o link APREPI abrir 'dropdown' de modo automático ao passar o mouse*/
   .dropdown:hover > .dropdown-menu {
     display: block;
@@ -78,5 +77,7 @@
   background-color: #cce0ff; /* azul um pouco mais escuro ao passar o mouse */
   color: #000;
 }
+
+
 
 
