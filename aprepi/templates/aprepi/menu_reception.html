@@ -1,0 +1,63 @@
+{% load static %}
+
+<nav class="navbar fixed-top navbar-expand-lg bg-nav" data-bs-theme="dark">
+  <div class="container">
+    <img src="{% static 'logo/logo.png' %}" alt="APREPI" style="width: 90px;" class="navbar-brand" />
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"><span class="navbar-toggler-icon"></span></button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarAprepi" role="button" data-bs-toggle="dropdown" aria-expanded="false">APREPI</a>
+          <ul class="dropdown-menu" aria-labelledby="navbarAprepi">
+            <li>
+              <a class="dropdown-item" href="{% url 'history' %}">História</a>
+            </li>
+
+            <li class="dropdown-submenu dropend">
+              <a class="dropdown-item dropdown-toggle" href="#">Transparência</a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="{% url 'documents' %}">Documentos</a>
+                </li>
+
+                <li>
+                  <a class="dropdown-item" href="#">Atas</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a class="dropdown-item" href="#">Artigos</a>
+            </li>
+
+            <li>
+              <a class="dropdown-item" href="#">Eventos</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'director' %}">Diretoria</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contribua</a>
+        </li>
+      </ul>
+
+      <div class="d-flex align-items-center">
+        <!-- Botão Logout -->
+        <a href="{% url 'logout' %}" class="btn btn-primary me-2">LOGOUT</a>
+
+        <!-- Bloco Avatar + mensagem -->
+        <div class="d-flex flex-column align-items-center text-center">
+          <img src="{{ user_avatar_url }}" alt="Avatar" class="rounded-circle" style="width: 40px; height: 40px;" />
+          <span class="text-white small mt-1">
+            <div class="fw-semibold" style="font-size: 0.8rem;">Bem-vindo(a)</div>
+            <div class="fw-bold" style="font-size: 0.9rem;">{{ user_name }}!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

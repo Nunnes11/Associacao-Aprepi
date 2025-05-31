@@ -12,11 +12,15 @@
 }
 
 .register-color {
-    background-color: #87a4cf; /* define a cor do background na página 'Cadastro'*/
+    background-color: #87a4cf; /* define a cor do background da página 'Cadastro'*/
 }
 
 .bg-page {
-  background-color: #B0C4DE;
+  background-color: #E0FFFF; /* define a cor do background da 'Página Principal'*/
+}
+
+.card-color {
+  background-color: #E0FFFF;
 }
 
 .list_users-color {
@@ -34,6 +38,15 @@
   left: 0;
   right: 0;
 }
+
+/* Centraliza e define a largura do rodapé igual à da navbar */
+.footer-center {
+  max-width: 1140px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+
 
 /* Define o tamanho e a opacidade da imagem na página 'Cadastro'*/
 .img-opacity {

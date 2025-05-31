@@ -154,7 +154,7 @@ class History(models.Model):
     
     class Meta:
         verbose_name = 'história'
-        verbose_name_plural = 'histórias'
+        verbose_name_plural = 'história'
 
 # Modelo que representa o sublink 'Documentos' na seção 'Transparência'(link APREPI)
 class Documents(models.Model):
@@ -213,7 +213,7 @@ class Directors(models.Model):
     
     class Meta:
         verbose_name = 'diretoria'
-        verbose_name_plural = 'diretorias'
+        verbose_name_plural = 'diretoria'
 
 
 
