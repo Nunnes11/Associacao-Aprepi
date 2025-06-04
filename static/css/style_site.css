@@ -31,6 +31,7 @@
   background-color: #b2bcd4; /* define a cor do background na página 'Documentos'*/
 }
 
+
 /* Estrutura para delimitar a largura da navbar na 'Página Principal (reception_page.html)'*/
 .navbar.fixed-top {
   max-width: 1140px; /* ou 100% se quiser responsivo */

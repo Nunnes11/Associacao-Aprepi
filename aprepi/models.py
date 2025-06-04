@@ -90,6 +90,34 @@ class Recent_News(models.Model):
         verbose_name_plural = 'notícias recentes'
 
 
+class Comment_News(models.Model):
+    news = models.ForeignKey(Recent_News, on_delete=models.CASCADE, related_name='comments')
+    name = models.CharField(max_length=150, verbose_name='Nome')
+    comment = models.TextField(max_length=250, verbose_name='Deixe seu comentário')
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name = 'comentário'
+        verbose_name_plural = 'comentários'
+
+
+class Reply_Comment(models.Model):
+    comment = models.ForeignKey(Comment_News, on_delete=models.CASCADE, related_name='replies')
+    name = models.CharField(max_length=150, verbose_name='Nome')
+    reply = models.TextField(max_length=250, verbose_name='Responder')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name = 'resposta'
+        verbose_name_plural = 'respostas'
+
+
 # Modelo que representa o campo 'Depoimentos'
 class Testimonials(models.Model):
     name = models.CharField(max_length=150, verbose_name='Nome')
@@ -127,6 +155,7 @@ class Testimonials(models.Model):
         verbose_name_plural = 'Depoimentos'
         ordering = ['-created_at']
 
+#------------------------ LINK APREPI ------------------------#
 
 # Modelo que representa o sublink 'História(da Associação)'
 class History(models.Model):
@@ -156,7 +185,7 @@ class History(models.Model):
         verbose_name = 'história'
         verbose_name_plural = 'história'
 
-# Modelo que representa o sublink 'Documentos' na seção 'Transparência'(link APREPI)
+# Modelo que representa o sublink 'Documentos' na seção 'Transparência'
 class Documents(models.Model):
     title = models.CharField(max_length=150, verbose_name='Título')
     file = models.FileField(upload_to='files/', verbose_name='Arquivo')

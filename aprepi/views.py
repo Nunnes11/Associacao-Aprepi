@@ -4,8 +4,8 @@ from django.contrib.auth.hashers import check_password
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import user_passes_test
 from django.templatetags.static import static
-from .models import Register_Users, Recent_News, Testimonials, History, Documents, Directors, About
-from .forms import RegisterUsersForm, TestimonialsForm
+from .models import Register_Users, Recent_News, Comment_News, Testimonials, History, Documents, Directors, About
+from .forms import RegisterUsersForm, TestimonialsForm, CommentNewsForm, ReplyCommentForm
 from .decorators import is_patient
 from datetime import date
 
@@ -126,7 +126,46 @@ def news_list(request):
 
 def new_detail(request, id):
     new = get_object_or_404(Recent_News, id=id)
-    return render(request, 'aprepi/new_detail.html', {'new': new})
+    comments = new.comments.all().order_by('created_at')
+
+    comment_form = CommentNewsForm()
+    reply_form = ReplyCommentForm()
+
+    if request.method == 'POST':
+        if 'comment_submit' in request.POST:
+            comment_form = CommentNewsForm(request.POST)
+            if comment_form.is_valid():
+                comment = comment_form.save(commit=False)
+                comment.news = new
+                
+                user_id = request.session.get('user_id')
+                if user_id:
+                    try:
+                        usuario = Register_Users.objects.get(id=user_id)
+                        comment.name = usuario.name
+                    except Register_Users.DoesNotExist:
+                        comment.name = 'Anônimo'
+                else:
+                    comment.name = 'Anônimo'
+
+                comment.save()
+                return redirect('new_detail', id=new.id)
+        
+        elif 'reply_submit' in request.POST:
+            reply_form = ReplyCommentForm(request.POST)
+            if reply_form.is_valid():
+                reply = reply_form.save(commit=False)
+                comment_id = request.POST.get('comment_id')
+                reply.comment = get_object_or_404(Comment_News, id=comment_id)
+                reply.save()
+                return redirect('new_detail', id=new.id)
+
+    return render(request, 'aprepi/new_detail.html', {
+        'new': new,
+        'comments': comments,
+        'form': comment_form,
+        'reply_form': reply_form
+    })
 
 
 def testimonials_list(request):

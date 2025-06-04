@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.hashers import make_password
-from .models import Register_Users, Testimonials
+from .models import Register_Users, Testimonials, Comment_News, Reply_Comment
 
 class RegisterUsersForm(forms.ModelForm):
     '''Campo adicional que não será salvo no banco de dados'''
@@ -49,4 +49,24 @@ class TestimonialsForm(forms.ModelForm):
                     'placeholder': 'Escreva seu depoimento'
                 }),
           }
-     
+
+class CommentNewsForm(forms.ModelForm):
+     class Meta:
+          model = Comment_News
+          fields = ['comment']
+          widgets = {
+               'comment': forms.Textarea(attrs={'class': 'form-control', 'rows':3}),
+          }
+
+class ReplyCommentForm(forms.ModelForm):
+     class Meta:
+          model = Reply_Comment
+          fields = ['name', 'reply']
+          widgets = {
+               'name': forms.TextInput(attrs={'class': 'forms-control'}),
+               'reply': forms.Textarea(attrs={
+                    'placeholder': 'Digite sua resposta',
+                    'class': 'forms-control',
+                    'rows':2
+                }),
+          }

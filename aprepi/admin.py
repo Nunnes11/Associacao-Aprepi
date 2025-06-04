@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Register_Users, Recent_News, Testimonials, History, Documents, Directors, About
+from .models import Register_Users, Recent_News, Comment_News, Testimonials, History, Documents, Directors, About
 from django.utils.html import format_html
 
 @admin.register(Register_Users)
@@ -21,6 +21,9 @@ class RecentNewsAdmin(admin.ModelAdmin):
         return (obj.text[:50] + '...') if len(obj.text) > 50 else obj.text
     short_text.short_description = 'Texto'
 
+@admin.register(Comment_News)
+class CommentNewsAdmin(admin.ModelAdmin):
+    list_display = ['name', 'comment', 'created_at']
 
 @admin.register(Testimonials)
 class TestimonialsAdmin(admin.ModelAdmin):
@@ -63,3 +66,4 @@ class DirectorsAdmin(admin.ModelAdmin):
 @admin.register(About)
 class AboutAdmin(admin.ModelAdmin):
     list_display = ['name', 'image', 'description']
+
