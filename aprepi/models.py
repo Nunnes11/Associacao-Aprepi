@@ -90,6 +90,7 @@ class Recent_News(models.Model):
         verbose_name_plural = 'notícias recentes'
 
 
+# Modelo que representa o comentário de uma notícia
 class Comment_News(models.Model):
     news = models.ForeignKey(Recent_News, on_delete=models.CASCADE, related_name='comments')
     name = models.CharField(max_length=150, verbose_name='Nome')
@@ -104,6 +105,7 @@ class Comment_News(models.Model):
         verbose_name_plural = 'comentários'
 
 
+# Modelo que representa uma resposta ao comentário de uma notícia
 class Reply_Comment(models.Model):
     comment = models.ForeignKey(Comment_News, on_delete=models.CASCADE, related_name='replies')
     name = models.CharField(max_length=150, verbose_name='Nome')
@@ -185,7 +187,9 @@ class History(models.Model):
         verbose_name = 'história'
         verbose_name_plural = 'história'
 
-# Modelo que representa o sublink 'Documentos' na seção 'Transparência'
+#------------------------ TRANSPARÊNCIA ------------------------#
+
+# Modelo que representa o sublink 'Documentos'
 class Documents(models.Model):
     title = models.CharField(max_length=150, verbose_name='Título')
     file = models.FileField(upload_to='files/', verbose_name='Arquivo')
@@ -216,7 +220,41 @@ class Documents(models.Model):
         verbose_name = 'documento'
         verbose_name_plural = 'documentos'
 
-# Modelo que representa o link 'Diretoria'
+
+# Modelo que representa o sublink 'Atas'
+class Ata(models.Model):
+    title = models.CharField(max_length=150, verbose_name='Título')
+    file = models.FileField(upload_to='atas/', verbose_name='Arquivo da ata')
+    thumbnail = models.ImageField(upload_to='thumbnails/', blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        if self.file and not self.thumbnail:
+            # Caminho do PDF salvo
+            pdf_path = self.file.path
+
+            # Converte a primeira página do PDF em imagem
+            images = convert_from_path(pdf_path, first_page=1, last_page=1)
+            if images:
+                img_io = BytesIO()
+                images[0].save(img_io, format='PNG')
+
+                # Salva como ImageField
+                img_name = os.path.splitext(os.path.basename(self.file.name))[0] + '.png'
+                self.thumbnail.save(img_name, ContentFile(img_io.getvalue()), save=False)
+                super().save(update_fields=['thumbnail'])
+
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name = 'ata'
+        verbose_name_plural = 'atas'
+
+
+#------------------------ LINK DIRETORIA ------------------------#
+
 class Directors(models.Model):
     name = models.CharField(max_length=150, verbose_name='Nome')
     image = models.ImageField(upload_to='directors/', verbose_name='Imagem', blank=True, null=True)
