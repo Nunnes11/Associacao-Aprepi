@@ -1,0 +1,42 @@
+{% extends 'aprepi/base_clear.html' %}
+{% load static %}
+
+{% block body_class %}bg-documents{% endblock %}
+
+{% block content %}
+  <div class="container my-5 bg-documents">
+    <h2 class="fw-bold">Nossos Eventos</h2>
+
+    <div class="row">
+      {% for img in images %}
+        <div class="col-md-3 col-6 text-center mt-4">
+          <img src="{{ img.image.url }}" alt="Imagem de evento" class="img-fluid" style="max-height: 200px;">
+          <p class="mt-2 small text-truncate" title="{{ img.description }}">{{ img.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+
+    <h3 class="fw-bold mt-5">Vídeos</h3>
+
+    <div class="row">
+      {% for video in videos %}
+        <div class="col-md-4 col-12 text-center mt-4">
+          <a href="{{ video.video_url }}" target="_blank" class="d-block position-relative">
+            <img src="{{ video.thumbnail.url }}" alt="Miniatura do vídeo" class="img-fluid" style="max-height: 200px;">
+            <span class="position-absolute top-50 start-50 translate-middle text-white fs-3">▶</span>
+          </a>
+          <p class="mt-2 small text-truncate" title="{{ video.description }}">{{ video.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="d-flex flex-column align-items-center mt-5">
+      <a href="{% url 'reception_page' %}" class="btn btn-primary">Voltar</a>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <!-- Se necessário, você pode adicionar um script JS aqui futuramente -->
+{% endblock %}
+

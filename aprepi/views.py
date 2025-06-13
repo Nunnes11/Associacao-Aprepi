@@ -4,7 +4,7 @@ from django.contrib.auth.hashers import check_password
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import user_passes_test
 from django.templatetags.static import static
-from .models import Register_Users, Recent_News, Comment_News, Testimonials, History, Documents, Ata, Directors, About
+from .models import Register_Users, Recent_News, Comment_News, Testimonials, History, Documents, Ata, EventImage, EventVideo, Directors, About
 from .forms import RegisterUsersForm, TestimonialsForm, CommentNewsForm, ReplyCommentForm
 from .decorators import is_patient
 from datetime import date
@@ -227,7 +227,16 @@ def ata(request):
     atas = Ata.objects.all()
     return render(request, 'aprepi/atas.html', {'atas': atas})
 
+def events(request):
+    images = EventImage.objects.all().order_by('-created_at')
+    videos = EventVideo.objects.all().order_by('-created_at')
 
+    return render(request, 'aprepi/events.html', {
+        'images': images,
+        'videos': videos,
+    })
+
+           
 def director(request):
     directors = Directors.objects.all()
     return render(request, 'aprepi/directors.html', {'directors': directors})

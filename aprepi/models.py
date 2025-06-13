@@ -187,9 +187,9 @@ class History(models.Model):
         verbose_name = 'história'
         verbose_name_plural = 'história'
 
-#------------------------ TRANSPARÊNCIA ------------------------#
+#------------------------ SUBLINK TRANSPARÊNCIA ------------------------#
 
-# Modelo que representa o sublink 'Documentos'
+# Modelo que representa o submenu 'Documentos'
 class Documents(models.Model):
     title = models.CharField(max_length=150, verbose_name='Título')
     file = models.FileField(upload_to='files/', verbose_name='Arquivo')
@@ -221,7 +221,7 @@ class Documents(models.Model):
         verbose_name_plural = 'documentos'
 
 
-# Modelo que representa o sublink 'Atas'
+# Modelo que representa o submenu 'Atas'
 class Ata(models.Model):
     title = models.CharField(max_length=150, verbose_name='Título')
     file = models.FileField(upload_to='atas/', verbose_name='Arquivo da ata')
@@ -252,6 +252,45 @@ class Ata(models.Model):
         verbose_name = 'ata'
         verbose_name_plural = 'atas'
 
+#------------------------ SUBLINK EVENTOS ------------------------#
+#Modelo que representa o campo de imagens na página 'Eventos'#
+class EventImage(models.Model):
+    image = models.ImageField(upload_to='event_image/', verbose_name='Imagem')
+    description = models.TextField(max_length=250, blank=True, verbose_name='Descrição')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Criado em')
+
+    def __str__(self):
+        return f"Imagem:{self.description[:30]}"
+    
+    # Sobrescrevendo o 'método delete' para o campo 'image'
+    def delete(self, *args, **kwargs):
+        if self.image and os.path.isfile(self.image.path):
+            os.remove(self.image.path)
+            super().delete(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'imagem de evento'
+        verbose_name_plural = 'imagens de eventos'
+
+#Modelo que representa o campo de vídeos na página 'Eventos'#
+class EventVideo(models.Model):
+    thumbnail = models.ImageField(upload_to='event_thumbs/')
+    video = models.URLField(help_text='Link para o vídeo (ex: Youtube)')
+    description = models.TextField(max_length=250, blank=True, verbose_name='Descrição')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Criado em')
+
+    def __str__(self):
+        return f"Vídeo:{self.description[:30]}"
+    
+    # Sobrescrevendo o 'método delete' para o campo 'image'
+    def delete(self, *args, **kwargs):
+        if self.thumbnail and os.path.isfile(self.thumbnail.path):
+            os.remove(self.thumbnail.path)
+            super().delete(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'vídeo de evento'
+        verbose_name_plural = 'vídeos de eventos'
 
 #------------------------ LINK DIRETORIA ------------------------#
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Register_Users, Recent_News, Comment_News, Testimonials, History, Documents, Ata, Directors, About
+from .models import Register_Users, Recent_News, Comment_News, Testimonials, History, Documents, Ata, EventImage, EventVideo, Directors, About
 from django.utils.html import format_html
 
 @admin.register(Register_Users)
@@ -69,6 +69,16 @@ class AtaAdmin(admin.ModelAdmin):
         return "Nenhuma miniatura"
 
     thumbnail_preview.short_description = "Miniatura"
+
+
+@admin.register(EventImage)
+class EventImageAdmin(admin.ModelAdmin):
+    list_display = ['description', 'created_at']
+
+
+@admin.register(EventVideo)
+class EventVideoAdmin(admin.ModelAdmin):
+    list_display = ['description', 'created_at']
 
 
 @admin.register(Directors)
