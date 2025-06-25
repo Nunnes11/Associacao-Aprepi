@@ -1,6 +1,6 @@
 {% load static %}
 
-<nav class="navbar navbar-expand-lg bg-nav" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg bg-page" data-bs-theme="dark">
     <div class="container">
       <img src={% static 'logo/logo.png' %} alt="APREPI" style="width: 90px;" class="navbar-brand">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,7 +26,7 @@
         </ul>
         
         <div>
-          <a href="{% url 'login' %}" class="btn btn-outline-light me-2">Login</a>
+          <a href="{% url 'login' %}" class="btn btn-info me-2">Login</a>
         </div>
         
       </div>

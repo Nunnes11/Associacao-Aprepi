@@ -1,30 +1,14 @@
 /* Seletores para definição de cores próprias em páginas particulares*/
 .bg-nav {
-    background-color: #004dff; /* define a cor da navbar na 'Página Principal'*/
-}
-
-.about-color {
-    background-color: #f3f5f8;
-}
-
-.contact-color {
-    background-color: #f3f5f8;
-}
-
-.register-color {
-    background-color: #87a4cf; /* define a cor do background da página 'Cadastro'*/
+    background-color: #004dff; /* define a cor da navbar na 'Home'*/
 }
 
 .bg-page {
-  background-color: #E0FFFF; /* define a cor do background da 'Página Principal'*/
+  background-color: #B0E0E6; /* define a cor do background da 'Página Principal'*/
 }
 
 .card-color {
   background-color: #E0FFFF;
-}
-
-.list_users-color {
-    background-color: #97f0f0;
 }
 
 .bg-documents {
@@ -32,13 +16,30 @@
 }
 
 
-/* Estrutura para delimitar a largura da navbar na 'Página Principal (reception_page.html)'*/
-.navbar.fixed-top {
-  max-width: 1140px; /* ou 100% se quiser responsivo */
-  margin: 0 auto;
-  left: 0;
-  right: 0;
+/* Aplica cores aos elementos da navbar na 'Página Principal' */
+.navbar a,
+.navbar-nav .nav-link,
+.navbar-brand {
+  color: #003366 !important; /* altera a cor dos links */
 }
+
+.navbar a:hover,
+.navbar-nav .nav-link:hover {
+  color: #708090 !important; /* altera a cor dos sublinks */
+}
+
+
+/* Altera a cor da mensagem no avatar do usuário na navbar */
+.mg-avatar {
+  color: #003366;
+}
+
+/* Altera a cor do texto no rodapé */
+.text-footer {
+  color: #003366;
+}
+
+
 
 /* Centraliza e define a largura do rodapé igual à da navbar */
 .footer-center {

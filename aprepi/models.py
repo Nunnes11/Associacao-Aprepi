@@ -253,7 +253,8 @@ class Ata(models.Model):
         verbose_name_plural = 'atas'
 
 #------------------------ SUBLINK EVENTOS ------------------------#
-#Modelo que representa o campo de imagens na página 'Eventos'#
+
+'''Modelo que representa o campo de IMAGENS'''
 class EventImage(models.Model):
     image = models.ImageField(upload_to='event_image/', verbose_name='Imagem')
     description = models.TextField(max_length=250, blank=True, verbose_name='Descrição')
@@ -272,10 +273,10 @@ class EventImage(models.Model):
         verbose_name = 'imagem de evento'
         verbose_name_plural = 'imagens de eventos'
 
-#Modelo que representa o campo de vídeos na página 'Eventos'#
+'''Modelo que representa o campo de VÍDEOS'''
 class EventVideo(models.Model):
-    thumbnail = models.ImageField(upload_to='event_thumbs/')
-    video = models.URLField(help_text='Link para o vídeo (ex: Youtube)')
+    thumbnail = models.ImageField(upload_to='event_thumbs/', verbose_name='Escolha uma miniatura')
+    video = models.FileField(upload_to='event_video', verbose_name='Escolha um vídeio')
     description = models.TextField(max_length=250, blank=True, verbose_name='Descrição')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Criado em')
 
@@ -283,10 +284,14 @@ class EventVideo(models.Model):
         return f"Vídeo:{self.description[:30]}"
     
     # Sobrescrevendo o 'método delete' para o campo 'image'
+    # Remove o thumbnail do disco
     def delete(self, *args, **kwargs):
         if self.thumbnail and os.path.isfile(self.thumbnail.path):
             os.remove(self.thumbnail.path)
-            super().delete(*args, **kwargs)
+        # Remove o vídeo do disco
+        if self.video and os.path.isfile(self.video.path):
+            os.remove(self.video.path)
+        super().delete(*args, **kwargs)
 
     class Meta:
         verbose_name = 'vídeo de evento'
@@ -320,6 +325,4 @@ class Directors(models.Model):
     class Meta:
         verbose_name = 'diretoria'
         verbose_name_plural = 'diretoria'
-
-
 

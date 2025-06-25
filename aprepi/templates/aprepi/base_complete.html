@@ -19,12 +19,12 @@
     <!--Incluir o MENU-->
     {% include 'aprepi/menu_reception.html' %}
 
-    <div class="container">
+    {% comment %} <div class="container"> {% endcomment %}
 
     {% block content %}
     {% endblock content %}
 
-    </div>
+    {% comment %} </div> {% endcomment %}
 
     <!--Incluir o RODAPÉ-->
     {% include 'aprepi/footer.html' %}

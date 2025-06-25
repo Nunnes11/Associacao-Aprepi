@@ -1,7 +1,29 @@
-{% extends 'aprepi/base.html' %}
+{% extends 'aprepi/base_clear.html' %}
 
 {% block body_class %}contact-color{% endblock %}
 
 {% block content %}
-<h2>Esta é a página Contato</h2>
+<div class="container my-4">
+    <h2 class="fw-bold">Contato</h2>
+
+    <div class="row mb-5 pt-4 pb-5 p-2">
+        <div class="col-md-5">
+            <h3 class="mb-3">Nosso Endereço</h3>
+
+            <h5>
+            Rua Rui Barbosa s/n<br>
+            Edifício Carlos Castelo Branco, Centro - Norte<br>
+            Teresina - PI<br>
+            Próximo ao Ginásio Verdão.<br><br>
+            Telefone: (86) 3223-7355(manhã)<br>
+            Cel.: (86) 98815-9568 / (86) 98875-6618<br><br>
+            Email: renaisaprepi@gmail.com
+            </h5>
+        </div>
+    </div>
+
+    <div class="d-flex flex-column align-items-center">
+      <a href="{% url 'home' %}" class="btn btn-primary">Voltar</a>
+    </div>
+</div>
 {% endblock content %}

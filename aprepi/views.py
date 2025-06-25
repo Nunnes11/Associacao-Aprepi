@@ -9,6 +9,8 @@ from .forms import RegisterUsersForm, TestimonialsForm, CommentNewsForm, ReplyCo
 from .decorators import is_patient
 from datetime import date
 
+#------------MENU PÚBLICO (HOME)------------#
+
 def home(request):
     return render(request, 'aprepi/home.html')
 
@@ -18,6 +20,8 @@ def about(request):
 
 def contact(request):
     return render(request, 'aprepi/contact.html')
+
+#------------CADASTRO------------#
 
 def register_users(request):
     if request.method == 'POST':
@@ -30,31 +34,35 @@ def register_users(request):
         form = RegisterUsersForm()
     return render(request, 'aprepi/register_users.html', {'form':form})
 
-def list_users(request):
-    users = Register_Users.objects.all()
-    return render(request, 'aprepi/list_users.html', {'users': users})
+#--------------------//-----------------------#
 
-def update_user(request, id):
-    user = get_object_or_404(Register_Users, id=id)
+# def list_users(request):
+#     users = Register_Users.objects.all()
+#     return render(request, 'aprepi/list_users.html', {'users': users})
 
-    if request.method == 'POST':
-        form = RegisterUsersForm(request.POST, instance=user)
-        if form.is_valid():
-            form.save()
-            return redirect('list_users')
-    else:
-        form = RegisterUsersForm(instance=user)
+# def update_user(request, id):
+#     user = get_object_or_404(Register_Users, id=id)
 
-    return render(request, 'aprepi/update_user.html', {'form': form})
+#     if request.method == 'POST':
+#         form = RegisterUsersForm(request.POST, instance=user)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('list_users')
+#     else:
+#         form = RegisterUsersForm(instance=user)
 
-def delete_user(request, id):
-    user = get_object_or_404(Register_Users, id=id)
+#     return render(request, 'aprepi/update_user.html', {'form': form})
 
-    if request.method == 'POST':
-        user.delete()
-        return redirect('list_users')
+# def delete_user(request, id):
+#     user = get_object_or_404(Register_Users, id=id)
+
+#     if request.method == 'POST':
+#         user.delete()
+#         return redirect('list_users')
     
-    return render(request, 'aprepi/delete_user.html', {'user': user})
+#     return render(request, 'aprepi/delete_user.html', {'user': user})
+
+#-------FUNÇÃO PARA ARQUIVAR USUÁRIOS--------#
 
 def archive_user(request, id):
     user = get_object_or_404(Register_Users, id=id)
@@ -62,17 +70,20 @@ def archive_user(request, id):
     user.save()
     return redirect('list_users')
 
-def list_patients(request):
-    patients = Register_Users.objects.all()
-    return render(request, 'aprepi/list_patients.html', {'patients': patients})
+#--------------------//-----------------------#
 
-def update_patient(request):
-    return render(request, 'aprepi/update_patient.html')
+# def list_patients(request):
+#     patients = Register_Users.objects.all()
+#     return render(request, 'aprepi/list_patients.html', {'patients': patients})
 
-def delete_patient(request):
-    return render(request, 'aprepi/delete_patient.html')
+# def update_patient(request):
+#     return render(request, 'aprepi/update_patient.html')
 
-'''Função para implementar o LOGIN'''
+# def delete_patient(request):
+#     return render(request, 'aprepi/delete_patient.html')
+
+#-------FUNÇÃO PARA IMPLEMENTAR 'LOGIN'-------#
+
 def login(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -89,12 +100,15 @@ def login(request):
     
     return render(request, 'aprepi/login.html')
 
-'''Função para implementar o LOGOUT, retornando para a HOME'''
+#-----FUNÇÃO PARA IMPLEMENTAR 'LOGOUT', COM RETORNO PARA 'HOME'-----#
+
 def logout(request):
     request.session.flush()
     return redirect('home')
 
+#-----------------PÁGINA PRINCIPAL DO SITE (PÓS LOGIN)-----------------#
 
+'''Função para implementar a PÁGINA PRINCIPAL'''
 def reception_page(request):
     user_id = request.session.get('user_id')
     if not user_id:
@@ -118,17 +132,68 @@ def reception_page(request):
         'testimonials': testimonials
     })
 
+#-------------------------NAVBAR------------------------#
 
+#----------------------Link APREPI----------------------#
+
+'''Função para o sublink História'''
+def history(request):
+    historys = History.objects.all()
+    return render(request, 'aprepi/history.html', {'historys': historys})
+
+#---------Sublink TRANSPARÊNCIA---------#
+
+'''Função para o submenu Documentos'''
+def documents(request):
+    documents = Documents.objects.all()
+    return render(request, 'aprepi/documents.html', {'documents': documents})
+
+'''Função para o submenu Atas'''
+def ata(request):
+    atas = Ata.objects.all()
+    return render(request, 'aprepi/atas.html', {'atas': atas})
+
+#---------Sublink EVENTOS---------#
+
+def events(request):
+    images = EventImage.objects.all().order_by('-created_at')
+    videos = EventVideo.objects.all().order_by('-created_at')
+
+    return render(request, 'aprepi/events.html', {
+        'images': images,
+        'videos': videos,
+    })
+
+#-------------------Link DIRETORIA-------------------#
+           
+def director(request):
+    directors = Directors.objects.all()
+    return render(request, 'aprepi/directors.html', {'directors': directors})
+
+
+#-------------------Link CONTRIBUA-------------------#
+
+def contribute(request):
+    return render(request, 'aprepi/contribute.html')
+
+
+#-----FUNÇÕES PARA OS CAMPOS DA PÁGINA PRINCIPAL-----#
+
+#----------------Campo 'Notícias Recentes'----------------#
+
+'''Função para listar as notícias'''
 def news_list(request):
     news = Recent_News.objects.all().order_by('id')
     return render(request, 'aprepi/news_list.html', {'news': news})
 
-
+'''Função para mostrar uma única notícia incluindo COMENTÁRIOS e RESPOSTAS'''
 def new_detail(request, id):
     new = get_object_or_404(Recent_News, id=id)
     comments = new.comments.all().order_by('created_at')
 
+    '''Variável que recebe o FORMULÁRIO para COMENTÁRIO DE UMA NOTÌCIA'''
     comment_form = CommentNewsForm()
+    '''Variável que recebe o FORMULÁRIO para RESPOSTA AO COMENTÁRIO DE UMA NOTÌCIA'''
     reply_form = ReplyCommentForm()
 
     if request.method == 'POST':
@@ -167,23 +232,25 @@ def new_detail(request, id):
         'reply_form': reply_form
     })
 
+#--------------Campo 'Depoimentos'(dos pacientes)--------------#
 
+'''Função para listagem dos depoimentos dos pacientes'''
 def testimonials_list(request):
     testimonials = Testimonials.objects.all().order_by('-id')
     return render(request, 'aprepi/testimonials_list.html', {'testimonials': testimonials})
 
-# Função que mostra o depoimento de cada paciente
+'''Função que mostra o depoimento de um ÚNICO paciente'''
 def testimonial_detail(request, id):
     testimonial = get_object_or_404(Testimonials, id=id)
     return render(request, 'aprepi/testimonial_detail.html', {'testimonial': testimonial})
 
-
+'''Função para cálculo da idade do paciente'''
 def calcular_idade(birth_date):
     today = date.today()
     return today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
 
 
-# Função para a 'Página de Depoimento'
+'''Função para implementar o formulário de depoimento dos paciêntes'''
 def create_testimonial(request):
     user_id = request.session.get('user_id')
 
@@ -211,39 +278,4 @@ def create_testimonial(request):
     else:
         form = TestimonialsForm()
     return render(request, 'aprepi/create_testimonial.html', {'form': form})
-
-
-def history(request):
-    historys = History.objects.all()
-    return render(request, 'aprepi/history.html', {'historys': historys})
-
-
-def documents(request):
-    documents = Documents.objects.all()
-    return render(request, 'aprepi/documents.html', {'documents': documents})
-
-
-def ata(request):
-    atas = Ata.objects.all()
-    return render(request, 'aprepi/atas.html', {'atas': atas})
-
-def events(request):
-    images = EventImage.objects.all().order_by('-created_at')
-    videos = EventVideo.objects.all().order_by('-created_at')
-
-    return render(request, 'aprepi/events.html', {
-        'images': images,
-        'videos': videos,
-    })
-
-           
-def director(request):
-    directors = Directors.objects.all()
-    return render(request, 'aprepi/directors.html', {'directors': directors})
-
-
-
-
-
-
 

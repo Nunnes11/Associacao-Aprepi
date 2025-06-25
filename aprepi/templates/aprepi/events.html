@@ -1,7 +1,9 @@
 {% extends 'aprepi/base_clear.html' %}
 {% load static %}
 
-{% block body_class %}bg-documents{% endblock %}
+{% block body_class %}
+  bg-documents
+{% endblock %}
 
 {% block content %}
   <div class="container my-5 bg-documents">
@@ -10,7 +12,9 @@
     <div class="row">
       {% for img in images %}
         <div class="col-md-3 col-6 text-center mt-4">
-          <img src="{{ img.image.url }}" alt="Imagem de evento" class="img-fluid" style="max-height: 200px;">
+          <img src="{{ img.image.url }}"
+               alt="Imagem de evento"
+               class="img-fluid" style="height: 200px; width: 100%; object-fit: cover;" />
           <p class="mt-2 small text-truncate" title="{{ img.description }}">{{ img.description }}</p>
         </div>
       {% endfor %}
@@ -21,10 +25,9 @@
     <div class="row">
       {% for video in videos %}
         <div class="col-md-4 col-12 text-center mt-4">
-          <a href="{{ video.video_url }}" target="_blank" class="d-block position-relative">
-            <img src="{{ video.thumbnail.url }}" alt="Miniatura do vídeo" class="img-fluid" style="max-height: 200px;">
-            <span class="position-absolute top-50 start-50 translate-middle text-white fs-3">▶</span>
-          </a>
+          <video controls class="img-fluid" style="max-height: 200px;">
+            <source src="{{ video.video.url }}" type="video/mp4" />Seu navegador não suporta a reprodução de vídeo.
+          </video>
           <p class="mt-2 small text-truncate" title="{{ video.description }}">{{ video.description }}</p>
         </div>
       {% endfor %}
@@ -39,4 +42,3 @@
 {% block scripts %}
   <!-- Se necessário, você pode adicionar um script JS aqui futuramente -->
 {% endblock %}
-

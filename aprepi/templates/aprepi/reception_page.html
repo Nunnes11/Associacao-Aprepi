@@ -1,12 +1,13 @@
 {% extends 'aprepi/base_complete.html' %}
 {% load static %}
 
+{% block body_class %}bg-page{% endblock %}
 
 {% block content %}
 
 <!-- HTML para Carrossel' -->
-<div class="container bg-page" style="padding-top: 90px; padding-bottom: 0;">
-  <div class="main-content">
+<div class="w-100" style="padding-top: 90px; padding-bottom: 0; margin: 0;">
+  <div class="main-content w-100 p-0 m-0">
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="8000">
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -37,12 +38,12 @@
 </div>
 
 <!-- HTML para a seção 'Notícias Recentes' -->
-<div class="container bg-page" style="padding-top: 0; padding-bottom: 0;">
+<div class="container" style="padding-top: 0; padding-bottom: 0;">
   <h2 class="pt-4">Notícias Recentes</h2>
   <div class="row">
     {% for new in news %}
       <div class="col-md-3 mt-3">
-        <div class="card mb-4 card-color">
+        <div class="card mb-4 bg-page">
           <img src="{{ new.image.url }}" class="card-img-top" alt="Imagem da notícia" style="height: 200px; object-fit: cover;" />
           <div class="card-body text-center">
             <h5 class="card-title">{{ new.title|truncatechars:50 }}</h5>
@@ -60,7 +61,7 @@
 </div>
 
 <!-- HTML para a seção 'Depoimentos dos Pacientes' -->
-<div class="container bg-page" style="padding-top: 0; padding-bottom: 0;">
+<div class="container" style="padding-top: 0; padding-bottom: 0;">
   <h2 class="pt-4">Depoimentos</h2>
   <div class="row">
     {% for t in testimonials %}

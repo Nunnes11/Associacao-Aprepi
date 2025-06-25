@@ -1,0 +1,44 @@
+{% extends 'aprepi/base_clear.html' %}
+
+{% block body_class %}bg-page{% endblock %}
+
+{% block content %}
+  <div class="container my-4">
+    <h2 class="fw-bold">Contribua com a Aprepi</h2><br>
+
+    <h5>
+        Participar da vida associativa é um gesto de cidadania. Você pode colaborar e ajudar de
+        diversas formas:
+    </h5>
+
+      <ul>
+      <li><h6>Sendo voluntário (limpeza, informática, administrativo, áreas gerais, dentre outras);</h6></li>
+      <li><h6>Doações de alimentos não perecíveis;</h6></li>
+      <li><h6>Doações de artigos para bazar ( roupas, calçados, acessórios, móveis e eletrodomésticos, etc.);</h6></li>
+      <li><h6>Doações em dinheiro por meio de depósito bancário:</h6></li>
+    </ul>
+
+    <ul>
+      <strong>CAIXA ECONÔMICA FEDERAL</strong><br>
+      <strong>Agência:</strong> 3828<br>
+      <strong>Conta:</strong> 914-2<br>
+      <strong>Operação:</strong> 003<br>
+    </ul>
+
+    <ul>
+      <strong>BANCO DO BRASIL</strong><br>
+      <strong>Agência:</strong> 3506-8<br>
+      <strong>Conta:</strong> 55.777-3<br>
+    </ul>
+
+    <ul>
+    <li><h6>Ou pelo <strong>pix</strong>: TELEFONE 86 98875 6618</h6></li>
+    </ul>
+
+    <div class="d-flex flex-column align-items-center">
+      <a href="{% url 'reception_page' %}" class="btn btn-primary">Voltar</a>
+    </div>
+
+  </div>
+
+{% endblock %}
