@@ -32,7 +32,6 @@ class About(models.Model):
         verbose_name = 'sobre'
         verbose_name_plural = 'sobre'
 
-
 # Modelo que representa um 'Registro de usuários'
 class Register_Users(models.Model):
     name = models.CharField(max_length=150, verbose_name='Nome')

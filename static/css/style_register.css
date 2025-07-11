@@ -1,0 +1,280 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #7486ec, #e8e9f3);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.cadastro-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    /* background: rgba(255, 255, 255, 0.95); */
+    border-radius: 15px;
+    /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); */
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 600px;
+}
+
+/* Seção do Formulário */
+.form-section {
+    padding: 40px;
+    /* background: rgba(184, 169, 217, 0.3); */
+    position: relative;
+}
+
+.form-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+    font-family: Arial, sans-serif;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #4a90e2;
+}
+
+.form-input[type="date"] {
+    width: auto;
+    min-width: 150px;
+}
+
+/* Checkbox */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* File Upload */
+.file-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.file-input {
+    display: none;
+}
+
+.file-button {
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
+
+.file-button:hover {
+    background: #e0e0e0;
+}
+
+.file-status {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Botões */
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.cadastrar-btn {
+    background: linear-gradient(45deg, #4a90e2, #7bb3f0);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cadastrar-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(74, 144, 226, 0.4);
+}
+
+.voltar-btn {
+    background: linear-gradient(45deg, #4a90e2, #7bb3f0);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.voltar-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(74, 144, 226, 0.4);
+}
+
+.voltar-btn::before {
+    content: "←";
+    font-size: 16px;
+}
+
+/* Seção da Imagem */
+.image-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.image-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.9;
+}
+
+/* Modal de Sucesso */
+.success-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.success-content {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 90%;
+}
+
+.success-title {
+    font-size: 24px;
+    color: #4a90e2;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.success-message {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.success-btn {
+    background: linear-gradient(45deg, #4a90e2, #7bb3f0);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.success-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(74, 144, 226, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .cadastro-container {
+        grid-template-columns: 1fr;
+    }
+
+    .image-section {
+        height: 300px;
+        order: -1;
+    }
+
+    .form-section {
+        padding: 30px 20px;
+    }
+
+    .form-title {
+        font-size: 28px;
+    }
+
+    .form-buttons {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+
+    .cadastrar-btn,
+    .voltar-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Animações */
+.cadastro-container {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

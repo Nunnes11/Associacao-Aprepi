@@ -34,33 +34,6 @@ def register_users(request):
         form = RegisterUsersForm()
     return render(request, 'aprepi/register_users.html', {'form':form})
 
-#--------------------//-----------------------#
-
-# def list_users(request):
-#     users = Register_Users.objects.all()
-#     return render(request, 'aprepi/list_users.html', {'users': users})
-
-# def update_user(request, id):
-#     user = get_object_or_404(Register_Users, id=id)
-
-#     if request.method == 'POST':
-#         form = RegisterUsersForm(request.POST, instance=user)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('list_users')
-#     else:
-#         form = RegisterUsersForm(instance=user)
-
-#     return render(request, 'aprepi/update_user.html', {'form': form})
-
-# def delete_user(request, id):
-#     user = get_object_or_404(Register_Users, id=id)
-
-#     if request.method == 'POST':
-#         user.delete()
-#         return redirect('list_users')
-    
-#     return render(request, 'aprepi/delete_user.html', {'user': user})
 
 #-------FUNÇÃO PARA ARQUIVAR USUÁRIOS--------#
 
@@ -70,17 +43,6 @@ def archive_user(request, id):
     user.save()
     return redirect('list_users')
 
-#--------------------//-----------------------#
-
-# def list_patients(request):
-#     patients = Register_Users.objects.all()
-#     return render(request, 'aprepi/list_patients.html', {'patients': patients})
-
-# def update_patient(request):
-#     return render(request, 'aprepi/update_patient.html')
-
-# def delete_patient(request):
-#     return render(request, 'aprepi/delete_patient.html')
 
 #-------FUNÇÃO PARA IMPLEMENTAR 'LOGIN'-------#
 

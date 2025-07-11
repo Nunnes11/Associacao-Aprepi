@@ -2,6 +2,12 @@ from django import forms
 from django.contrib.auth.hashers import make_password
 from .models import Register_Users, Testimonials, Comment_News, Reply_Comment
 
+# class MessageContactForm(forms.ModelForm):
+#      class Meta:
+#           model = Message_Contact
+#           fields = ['name', 'email', 'message']
+
+
 class RegisterUsersForm(forms.ModelForm):
     '''Campo adicional que não será salvo no banco de dados'''
     confirm_password = forms.CharField(widget=forms.PasswordInput, label='Confirme a senha')

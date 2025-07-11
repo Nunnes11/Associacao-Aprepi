@@ -1,9 +1,37 @@
 {% extends 'aprepi/base.html' %}
 {% load static %}
 
-{% block body_class %}bg-page{% endblock %}
 
 {% block content %}
+
+    <!-- Carousel -->
+    <div class="carousel-container">
+        <!-- Slide 1 -->
+        <div class="carousel-slide active">
+            <img src="/media/img/imagem1.png" alt="..." />
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="carousel-slide">
+            <img src="/media/img/imagem2.png" alt="..." />
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="carousel-slide">
+            <img src="/media/img/imagem3.png" alt="..." />
+        </div>
+
+        <!-- Navigation Arrows -->
+        <button class="carousel-nav carousel-prev" onclick="changeSlide(-1)">‹</button>
+        <button class="carousel-nav carousel-next" onclick="changeSlide(1)">›</button>
+
+        <!-- Dots Navigation -->
+        <div class="carousel-dots">
+            <span class="carousel-dot active" onclick="currentSlide(1)"></span>
+            <span class="carousel-dot" onclick="currentSlide(2)"></span>
+            <span class="carousel-dot" onclick="currentSlide(3)"></span>
+        </div>
+    </div>
 
 <!-- MENSAGEM DE SUCESSO -->
   {% if messages %}
@@ -16,8 +44,4 @@
       </div>
     {% endfor %}
   {% endif %}
-
-  <div class="centraliza-home" style="margin-top: -50px;">
-    <img src="{% static 'img/home-img.png' %}" alt="APREPI" style="width: 420px;" />
-  </div>
 {% endblock content%}

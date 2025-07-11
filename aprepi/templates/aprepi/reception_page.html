@@ -5,37 +5,6 @@
 
 {% block content %}
 
-<!-- HTML para Carrossel' -->
-<div class="w-100" style="padding-top: 90px; padding-bottom: 0; margin: 0;">
-  <div class="main-content w-100 p-0 m-0">
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="8000">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="/media/img/imagem1.png" class="d-block w-100" alt="..." />
-        </div>
-        <div class="carousel-item">
-          <img src="/media/img/imagem2.png" class="d-block w-100" alt="..." />
-        </div>
-        <div class="carousel-item">
-          <img src="/media/img/imagem3.png" class="d-block w-100" alt="..." />
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-  </div>
-</div>
 
 <!-- HTML para a seção 'Notícias Recentes' -->
 <div class="container" style="padding-top: 0; padding-bottom: 0;">
@@ -45,7 +14,7 @@
       <div class="col-md-3 mt-3">
         <div class="card mb-4 bg-page">
           <img src="{{ new.image.url }}" class="card-img-top" alt="Imagem da notícia" style="height: 200px; object-fit: cover;" />
-          <div class="card-body text-center">
+          <div class="card-body text-center bg-card">
             <h5 class="card-title">{{ new.title|truncatechars:50 }}</h5>
             <p class="card-text">{{ new.text|truncatechars:100 }}</p>
             <a href="{% url 'new_detail' new.id %}" class="btn btn-primary btn-sm mt-2">Ler notícia</a>
@@ -72,7 +41,7 @@
           {% else %}
             <img src="{% static 'img/avatar.png' %}" class="card-img-top" alt="Avatar padrão" class="card-img-top img-fluid rounded-top" style="height: 300px; object-fit: cover;" />
           {% endif %}
-          <div class="card-body text-center">
+          <div class="card-body text-center bg-card">
             <h5 class="card-title">{{ t.name }}</h5>
             <p class="card-text mb-0">Idade: {{ t.age }}</p>
             <p class="card-text">Cidade: {{ t.city }}</p>

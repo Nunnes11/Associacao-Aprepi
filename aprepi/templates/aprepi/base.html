@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'css/layout.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style_home.css' %}" rel="stylesheet">
     <link href="{% static 'css/style_site.css' %}" rel="stylesheet">
 
     <link rel="icon" href="{% static 'favicon/favicon.ico' %}" type="image/x-icon">
@@ -18,7 +18,7 @@
     <!--Incluir o MENU-->
     {% include 'aprepi/menu_home.html' %}
 
-    <div class="container">
+    <div>
 
     {% block content %}
     {% endblock content %}
@@ -26,5 +26,6 @@
     </div>
 
     <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/carousel_home.js' %}"></script>
 </body>
 </html>

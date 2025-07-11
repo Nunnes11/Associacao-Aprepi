@@ -2,6 +2,17 @@ from django.contrib import admin
 from .models import Register_Users, Recent_News, Comment_News, Testimonials, History, Documents, Ata, EventImage, EventVideo, Directors, About
 from django.utils.html import format_html
 
+
+@admin.register(About)
+class AboutAdmin(admin.ModelAdmin):
+    list_display = ['name', 'image', 'description']
+
+
+# @admin.register(Message_Contact)
+# class MessageContactAdmin(admin.ModelAdmin):
+#     list_display = ['name', 'email', 'message']
+
+
 @admin.register(Register_Users)
 class RegisterUsersAdmin(admin.ModelAdmin):
     list_display = ['name', 'birth_date', 'city', 'email']
@@ -84,9 +95,3 @@ class EventVideoAdmin(admin.ModelAdmin):
 @admin.register(Directors)
 class DirectorsAdmin(admin.ModelAdmin):
     list_display = ['name', 'image', 'description']
-
-
-@admin.register(About)
-class AboutAdmin(admin.ModelAdmin):
-    list_display = ['name', 'image', 'description']
-

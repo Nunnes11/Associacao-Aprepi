@@ -4,11 +4,11 @@
 }
 
 .bg-page {
-  background-color: #B0E0E6; /* define a cor do background da 'Página Principal'*/
+  background-color: #B0C4DE; /* define a cor do background da 'Página Principal'*/
 }
 
-.card-color {
-  background-color: #E0FFFF;
+.bg-card {
+  background-color: #a3bff3
 }
 
 .bg-documents {

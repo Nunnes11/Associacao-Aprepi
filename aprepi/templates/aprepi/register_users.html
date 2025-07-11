@@ -1,12 +1,93 @@
 {% extends 'aprepi/base_clear.html' %}
 {% load static %}
 
-{% block body_class %}register-color{% endblock %}
-
-
 {% block content %}
-<div class="container mt-4">
+<div class="cadastro-container">
+        <!-- Seção do Formulário -->
+        <div class="form-section">
+            <h1 class="form-title">Cadastro</h1>
+
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role='alert'>
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                </div>
+                {% endfor %}
+            {% endif %}
+            
+            <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label class="form-label" for="{{ form.name.id_for_label }}">Nome:</label>
+                {{ form.name }}
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="{{ form.birth_date.id_for_label }}">Data de nascimento:</label>
+                {{ form.birth_date }}
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="{{ form.city.id_for_label }}">Cidade:</label>
+                {{ form.city }}
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="{{ form.email.id_for_label }}">E-mail:</label>
+                {{ form.email }}
+            </div>
+
+            <div class="form-group">
+                <div class="checkbox-group">
+                    {{ form.is_patient }}
+                    <label class="form-label" for="{{ form.is_patient.id_for_label }}">{{ form.is_patient.label }}</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="{{ form.avatar.id_for_label }}">Avatar:</label>
+                {{ form.avatar }}
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="{{ form.password.id_for_label }}">Senha:</label>
+                {{ form.password }}
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="{{ form.confirm_password.id_for_label }}">Confirme a senha:</label>
+                {{ form.confirm_password }}
+            </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="cadastrar-btn">Cadastrar</button>
+                    <a href="{% url 'home' %}" class="voltar-btn">Voltar</a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Seção da Imagem -->
+        <div class="image-section">
+            <img src="{% static 'img/fachada.png' %}" alt="Casa dos Renais - Fachada da Associação">
+        </div>
+    </div>
+
+    <!-- Modal de Sucesso -->
+    <div class="success-modal" id="successModal">
+        <div class="success-content">
+            <h2 class="success-title">✓ Sucesso!</h2>
+            <p class="success-message">Cadastro realizado com sucesso.</p>
+            <button class="success-btn" onclick="closeSuccessModal()">OK</button>
+        </div>
+    </div>
+{% endblock content %}
+
+
+{% comment %} <div class="container mt-4">
     <h2 class="mb-4">Cadastro</h2>
+
     <div class="cadastro-imagem">
 
     {% if messages %}
@@ -28,11 +109,5 @@
                 <button type="submit" class="btn btn-primary">Cadastrar</button>
             </form>
         </div>
-
-        <div class="col-md-6 text-center">
-            <img src="/media/img/logo_register.png" class="img-fluid img-opacity" style="width: 420px;" alt="Imagem APREPI">
-        </div>
-
     </div>
-</div>
-{% endblock content %}
+</div> {% endcomment %}

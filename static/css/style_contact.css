@@ -1,0 +1,234 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #7486ec, #e8e9f3);
+    min-height: 100vh;
+    padding: 20px 10px;
+}
+
+.contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    /* background: white; */
+    border-radius: 15px;
+    /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); */
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    min-height: 500px;
+}
+
+/* Seção de Informações de Contato */
+.info-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.address-info {
+    margin-bottom: 30px;
+}
+
+.address-line {
+    font-size: 16px;
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 5px;
+}
+
+.contact-details {
+    margin-bottom: 30px;
+}
+
+.contact-item {
+    font-size: 16px;
+    color: #444;
+    margin-bottom: 8px;
+}
+
+.contact-item strong {
+    color: #333;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+    align-items: flex-start;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    background: #333;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 20px;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    background: #4a90e2;
+    transform: translateY(-2px);
+}
+
+/* Seção da Logo */
+.logo-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.logo-container {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background: linear-gradient(135deg, #f0f8ff, #e6f3ff); */
+    border-radius: 50%;
+    /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); */
+    transition: transform 0.3s ease;
+}
+
+.logo-container:hover {
+    transform: scale(1.05);
+}
+
+.logo-image {
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+    /* border-radius: 50%; */
+}
+
+
+/* Botão Voltar */
+.voltar-container {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    margin-top: 1px;
+}
+
+.voltar-btn {
+    background: linear-gradient(45deg, #4a90e2, #7bb3f0);
+    color: white;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.voltar-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(74, 144, 226, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contact-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 40px 30px;
+    }
+
+    .info-title {
+        font-size: 28px;
+        text-align: center;
+    }
+
+    .logo-container {
+        max-width: 300px;
+        height: 300px;
+    }
+
+    .address-info,
+    .contact-details {
+        text-align: center;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 20px 10px;
+    }
+
+    .contact-container {
+        padding: 30px 20px;
+    }
+
+    .info-title {
+        font-size: 24px;
+    }
+
+    .address-line,
+    .contact-item {
+        font-size: 14px;
+    }
+
+    .logo-container {
+        max-width: 250px;
+        height: 250px;
+    }
+}
+
+/* Animações */
+.contato-container {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.logo-container {
+    animation: logoFloat 3s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}

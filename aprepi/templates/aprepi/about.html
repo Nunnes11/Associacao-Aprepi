@@ -2,39 +2,27 @@
 {% load static %}
 
 {% block content %}
-  <div class="container">
-    {% for about in abouts %}
-      {% if forloop.counter|divisibleby:2 %}
-        <div class="row featurette mb-5 p-3">
-          <div class="col-md-7">
-            <h2 class="featurette-heading fw-normal lh-1">{{ about.name }}</h2>
-            <p class="lead">{{ about.description|linebreaks }}</p>
-          </div>
-          <div class="col-md-5">
-            {% if about.image %}
-              <img src="{{ about.image.url }}" alt="{{ about.name }}" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="400" height="400" />
-            {% endif %}
-          </div>
-        </div>
-      {% else %}
-        <div class="row featurette mb-5 p-3">
-          <div class="col-md-7 order-md-2">
-            <h2 class="featurette-heading fw-normal lh-1">{{ about.name }}</h2>
-            <p class="lead">{{ about.description|linebreaks }}</p>
-          </div>
-          <div class="col-md-5 order-md-1">
-            {% if about.image %}
-              <img src="{{ about.image.url }}" alt="{{ about.name }}" width="430" height="500" />
-            {% endif %}
-          </div>
-        </div>
-      {% endif %}
-    {% endfor %}
 
-    <div class="d-flex flex-column align-items-center">
-      <a href="{% url 'home' %}" class="btn btn-primary">Voltar</a>
+  {% for about in abouts %}
+    <div class="about-container">
+      <!-- Seção da Imagem -->
+      <div class="image-section">
+        {% if about.image %}
+          <img src="{{ about.image.url }}" alt="{{ about.name }}" />
+        {% endif %}
+      </div>
+
+      <!-- Seção do Conteúdo -->
+      <div class="content-section">
+        <div class="content-main">
+          <h1 class="about-title">{{ about.name }}</h1>
+          <p class="about-text">{{ about.description|linebreaks }}</p>
+
+          <div class="d-flex justify-content-center my-4">
+            <a href="{% url 'home' %}" class="voltar-btn">Voltar</a>
+          </div>
+        </div>
+      </div>
     </div>
-
-  </div>
-  
+  {% endfor %}
 {% endblock %}

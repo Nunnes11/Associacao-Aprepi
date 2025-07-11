@@ -1,34 +1,24 @@
 {% load static %}
 
-<nav class="navbar navbar-expand-lg bg-page" data-bs-theme="dark">
-    <div class="container">
-      <img src={% static 'logo/logo.png' %} alt="APREPI" style="width: 90px;" class="navbar-brand">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'about' %}">Sobre</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'contact' %}">Contato</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'register_users' %}">Cadastro</a>
-          </li>
+ <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <div class="logo-circle">
+                <div class="logo-content">
+                    <img src="{% static 'logo/logo.png' %}" style="width: 100px;">
+                </div>
+            </div>
+        </div>
+        
+        <ul class="nav-menu">
+            <li><a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a></li>
+            <li><a class="nav-link active" aria-current="page" href="{% url 'about' %}">Sobre</a></li>
+            <li><a class="nav-link active" aria-current="page" href="{% url 'contact' %}">Contato</a></li>
+            <li><a class="nav-link active" aria-current="page" href="{% url 'register_users' %}">Cadastro</a></li>
         </ul>
         
         <div>
-          <a href="{% url 'login' %}" class="btn btn-info me-2">Login</a>
+          <a href="{% url 'login' %}" class="login-btn">LOGIN</a>
         </div>
-        
-      </div>
-    </div>
-  </nav>
+    </nav>
+
