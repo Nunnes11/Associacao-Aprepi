@@ -11,7 +11,7 @@
 <h5>Comentários</h5>
 
 {% for comment in comments %}
-  <div class="mb-3 p-3 border rounded bg-light">
+  <div class="mb-3 p-3">
     <strong>{{ comment.name }}</strong>
     <small class="text-muted">em {{ comment.created_at|date:"d/m/Y H:i" }}</small>
     <p>{{ comment.comment|linebreaks }}</p>
@@ -21,7 +21,7 @@
 
     <!-- Respostas -->
     {% for reply in comment.replies.all %}
-      <div class="ms-4 mt-2 p-2 border-start border-primary bg-white">
+      <div class="ms-4 mt-2 p-2 border-start border-primary">
         <strong>{{ reply.name }}</strong> 
         <small class="text-muted">em {{ reply.created_at|date:"d/m/Y H:i" }}</small>
         <p>{{ reply.reply|linebreaks }}</p>
@@ -49,7 +49,7 @@
   <button type="submit" name="comment_submit" class="btn btn-primary">Enviar</button>
 </form>
 
-  <a href="{% url 'news_list' %}" class="btn btn-secondary mt-3">← Voltar</a>
+  <a href="{% url 'news_list' %}" class="btn btn-secondary mt-3">← Saiu na Imprensa</a>
   <a href="{% url 'reception_page' %}" class="btn btn-primary mt-3">Página inicial</a>
 </div>
 {% endblock content %}

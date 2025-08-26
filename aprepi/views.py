@@ -29,7 +29,7 @@ def register_users(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Cadastro realizado com sucesso!')
-            return redirect('home')
+            return redirect('register_users')
     else:
         form = RegisterUsersForm()
     return render(request, 'aprepi/register_users.html', {'form':form})

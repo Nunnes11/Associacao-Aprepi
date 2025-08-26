@@ -73,41 +73,4 @@
             <img src="{% static 'img/fachada.png' %}" alt="Casa dos Renais - Fachada da Associação">
         </div>
     </div>
-
-    <!-- Modal de Sucesso -->
-    <div class="success-modal" id="successModal">
-        <div class="success-content">
-            <h2 class="success-title">✓ Sucesso!</h2>
-            <p class="success-message">Cadastro realizado com sucesso.</p>
-            <button class="success-btn" onclick="closeSuccessModal()">OK</button>
-        </div>
-    </div>
 {% endblock content %}
-
-
-{% comment %} <div class="container mt-4">
-    <h2 class="mb-4">Cadastro</h2>
-
-    <div class="cadastro-imagem">
-
-    {% if messages %}
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role='alert'>
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
-        </div>
-        {% endfor %}
-    {% endif %}
-
-    <div class="row align-items-center">
-        <!-- Coluna do formulário -->
-        <div class="col-md-6">
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
-
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
-            </form>
-        </div>
-    </div>
-</div> {% endcomment %}
