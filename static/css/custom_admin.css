@@ -1,0 +1,14 @@
+body {
+background-color: #adbde2f0 !important; /* fundo da tela de login */
+}
+
+.login-box {
+background: #9eb3e3f0;
+border-radius: 12px;
+padding: 20px;
+}
+
+.login-logo img {
+max-width: 250px;
+}
+

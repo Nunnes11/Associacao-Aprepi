@@ -15,7 +15,7 @@ class AboutAdmin(admin.ModelAdmin):
 
 @admin.register(Register_Users)
 class RegisterUsersAdmin(admin.ModelAdmin):
-    list_display = ['name', 'birth_date', 'city', 'email']
+    list_display = ['name', 'birth_date', 'city', 'email', 'gender']
 
 
 @admin.register(Recent_News)

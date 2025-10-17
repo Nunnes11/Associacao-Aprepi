@@ -3,13 +3,13 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+/* 
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #7486ec, #e8e9f3);
+    background: linear-gradient(135deg, #8d97d5, #e8e9f3);
     min-height: 100vh;
     padding: 20px 10px;
-}
+} */
 
 .contact-container {
     max-width: 1200px;

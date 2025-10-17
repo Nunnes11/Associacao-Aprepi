@@ -20,6 +20,9 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static # Importação para trabalhar com arquivos estáticos.
 
+# Carregar página 404 personalizada
+handler404 = 'Associacao.views.custom_page_not_found'
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),

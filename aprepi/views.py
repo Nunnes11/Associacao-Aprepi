@@ -30,6 +30,8 @@ def register_users(request):
             form.save()
             messages.success(request, 'Cadastro realizado com sucesso!')
             return redirect('register_users')
+        else:
+            messages.error(request, 'Por favor corrija os erros abaixo.')
     else:
         form = RegisterUsersForm()
     return render(request, 'aprepi/register_users.html', {'form':form})
@@ -82,7 +84,7 @@ def reception_page(request):
     if user.avatar:
         avatar_url = user.avatar.url
     else:
-        avatar_url = '/media/avatars/avatar.png'
+        avatar_url = static('img/avatar.png')
 
     news = Recent_News.objects.all().order_by('-created_at')[:4]
     testimonials = Testimonials.objects.all().order_by('-id')[:4]
@@ -91,7 +93,8 @@ def reception_page(request):
         'user_name': first_name,
         'user_avatar_url': avatar_url,
         'news': news,
-        'testimonials': testimonials
+        'testimonials': testimonials,
+        'current_user': user,
     })
 
 #-------------------------NAVBAR------------------------#
@@ -212,7 +215,7 @@ def calcular_idade(birth_date):
     return today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
 
 
-'''Função para implementar o formulário de depoimento dos paciêntes'''
+'''Função para implementar o formulário de depoimento dos pacientes'''
 def create_testimonial(request):
     user_id = request.session.get('user_id')
 
@@ -228,13 +231,16 @@ def create_testimonial(request):
         return redirect('reception_page') # Não é paciente.
     
     if request.method == 'POST':
-        form = TestimonialsForm(request.POST, request.FILES)
+        form = TestimonialsForm(request.POST)
         if form.is_valid():
             testimonial = form.save(commit=False)
             testimonial.name = user.name
             testimonial.age = calcular_idade(user.birth_date)
             testimonial.city = user.city
-            testimonial.avatar = user.avatar
+
+            if user.avatar:
+                testimonial.image = user.avatar
+            
             testimonial.save()
             return redirect('reception_page')
     else:

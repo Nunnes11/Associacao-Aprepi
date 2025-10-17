@@ -7,25 +7,21 @@
 
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <form method="post" enctype="multipart/form-data" class="p-4">
+      <form method="post" class="p-4">
         {% csrf_token %}
 
-        {% for field in form %}
           <div class="mb-3">
-            {{ field.label_tag }}
-            {{ field }}
-            {% if field.help_text %}
-              <small class="form-text text-muted">{{ field.help_text }}</small>
-            {% endif %}
-            {% if field.errors %}
-              <div class="text-danger">{{ field.errors }}</div>
+            {{ form.testimonial.label_tag }}
+            {{ form.testimonial }}
+
+            {% if form.testimonial.errors %}
+              <div class="text-danger">{{ form.testimonial.errors }}</div>
             {% endif %}
           </div>
-        {% endfor %}
-
-        <div class="text-center">
-          <button type="submit" class="btn btn-primary">Enviar Depoimento</button>
-        </div>
+        
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary mt-4">Enviar Depoimento</button>
+          </div>
       </form>
     </div>
   </div>

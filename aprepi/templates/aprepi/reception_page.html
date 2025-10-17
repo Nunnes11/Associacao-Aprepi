@@ -6,60 +6,83 @@
 {% block content %}
 
 
-<!-- HTML para a seção 'Notícias Recentes' -->
-<div class="container" style="padding-top: 100px; padding-bottom: 0;">
-  <h2 class="pt-5">Notícias Recentes</h2>
-  <div class="row">
-    {% for new in news %}
-      <div class="col-md-3 mt-3">
-        <div class="card mb-4 bg-page">
-          <img src="{{ new.image.url }}" class="card-img-top" alt="Imagem da notícia" style="height: 200px; object-fit: cover;" />
-          <div class="card-body text-center bg-card">
-            <h5 class="card-title">{{ new.title|truncatechars:50 }}</h5>
-            <p class="card-text">{{ new.text|truncatechars:100 }}</p>
-            <a href="{% url 'new_detail' new.id %}" class="btn btn-primary btn-sm mt-2">Ler notícia</a>
-          </div>
+<!-- HTML para a seção principal -->
+<main class="main-content" style="padding-top: 100px;">
+  <div class="container"> <!-- 🔹 Novo container pai -->
+
+    <!-- Notícias Recentes -->
+    <section class="section news-section">
+      <h2 class="section-title">Notícias Recentes</h2>
+
+      <div class="row">
+        {% for new in news %}
+        <div class="col-md-4 col-lg-3 mb-4"> <!-- 🔹 Agora usando colunas Bootstrap -->
+          <article class="card news-card h-100" aria-labelledby="news-{{ new.id }}">
+            <a href="{% url 'new_detail' new.id %}" class="card-image-link" title="{{ new.title }}">
+              {% if new.image %}
+              <img src="{{ new.image.url }}" alt="{{ new.title }}" class="card-img-top" />
+              {% else %}
+              <img src="{% static 'img/default-news.png' %}" alt="Sem imagem" class="card-img-top" />
+              {% endif %}
+            </a>
+
+            <div class="card-body">
+              <h3 id="news-{{ new.id }}" class="card-title">{{ new.title|truncatechars:60 }}</h3>
+              <p class="card-text">{{ new.text|truncatechars:120 }}</p>
+
+              <a href="{% url 'new_detail' new.id %}" class="btn btn-primary btn-sm">Ler notícia</a>
+            </div>
+          </article>
         </div>
+        {% empty %}
+        <p class="text-muted">Ainda não há notícias publicadas.</p>
+        {% endfor %}
       </div>
-    {% endfor %}
-  </div>
 
-  <div class="text-center mt-4">
-    <a href="{% url 'news_list' %}" class="btn btn-primary">Ver tudo</a>
-  </div>
-</div>
+      <div class="text-center">
+        <a href="{% url 'news_list' %}" class="btn btn-outline-primary">Ver tudo</a>
+      </div>
+    </section>
 
-<!-- HTML para a seção 'Depoimentos dos Pacientes' -->
-<div class="container" style="padding-top: 0; padding-bottom: 0;">
-  <h2 class="pt-4">Depoimentos</h2>
-  <div class="row">
-    {% for t in testimonials %}
-      <div class="col-md-3 mt-3">
-        <div class="card h-100 card-color">
-          {% if t.image %}
-            <img src="{{ t.image.url }}" class="card-img-top" alt="Imagem de {{ t.name }}" class="card-img-top img-fluid rounded-top" style="height: 300px; object-fit: cover;" />
-          {% else %}
-            <img src="{% static 'img/avatar.png' %}" class="card-img-top" alt="Avatar padrão" class="card-img-top img-fluid rounded-top" style="height: 300px; object-fit: cover;" />
-          {% endif %}
-          <div class="card-body text-center bg-card">
-            <h5 class="card-title">{{ t.name }}</h5>
-            <p class="card-text mb-0">Idade: {{ t.age }}</p>
-            <p class="card-text">Cidade: {{ t.city }}</p>
-            <a href="{% url 'testimonial_detail' t.id %}" class="btn btn-primary btn-sm mt-2">Ver depoimento</a>
-          </div>
+    <!-- Depoimentos -->
+    <section class="section testimonials-section mt-5">
+      <h2 class="section-title">Depoimentos</h2>
+
+      <div class="row">
+        {% for t in testimonials %}
+        <div class="col-md-4 col-lg-3 mb-4">
+          <article class="card testimonial-card text-center h-100">
+            {% if t.image %}
+            <img src="{{ t.image.url }}" alt="Foto de {{ t.name }}" class="card-img-top" />
+            {% else %}
+            <img src="{% static 'img/avatar.png' %}" alt="Avatar padrão" class="card-img-top" />
+            {% endif %}
+
+
+            <div class="card-body">
+              <h3 class="card-title">{{ t.name }}</h3>
+              <p class="small text-muted">Idade: {{ t.age }} — {{ t.city }}</p>
+              <a href="{% url 'testimonial_detail' t.id %}" class="btn btn-primary btn-sm">Ver depoimento</a>
+            </div>
+          </article>
         </div>
+        {% empty %}
+        <p class="text-muted">Nenhum depoimento disponível.</p>
+        {% endfor %}
       </div>
-    {% endfor %}
-  </div>
 
-  <div class="text-center mt-3">
-    <a href="{% url 'testimonials_list' %}" class="btn btn-primary">Ver tudo</a>
-  </div>
+      <div class="text-center">
+        <a href="{% url 'testimonials_list' %}" class="btn btn-outline-primary">Ver tudo</a>
+      </div>
+    </section>
 
-  <div class="text-center mt-5">
-    <p>Paciente amigo(a), caso queira deixar seu depoimento sobre a APREPI:</p>
-    <a href="{% url 'create_testimonial' %}" class="btn btn-outline-success">Clique aqui</a>
-  </div>
-</div>
+    <!-- Campo para deixar um depoimento -->
+    <section class="section cta-section">
+      <p class="cta-text">Paciente amigo(a), caso queira deixar seu depoimento sobre a APREPI:</p>
+      <a href="{% url 'create_testimonial' %}" class="cta-btn">Clique aqui</a>
+    </section>
+
+  </div> <!-- 🔹 Fim do container -->
+</main>
 
 {% endblock content %}

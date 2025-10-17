@@ -8,7 +8,7 @@
       {% if testimonial.image %}
         <img src="{{ testimonial.image.url }}" class="img-fluid rounded-circle mb-4" alt="Imagem de {{ testimonial.name }}" style="max-width: 200px;">
       {% else %}
-        <img src="{% static 'images/avatar.png' %}" class="img-fluid rounded-circle mb-4" alt="Avatar padrão" style="max-width: 200px;">
+        <img src="{% static 'img/avatar.png' %}" class="img-fluid rounded-circle mb-4" alt="Avatar padrão" style="max-width: 200px;">
       {% endif %}
 
       <h3>{{ testimonial.name }}</h3>

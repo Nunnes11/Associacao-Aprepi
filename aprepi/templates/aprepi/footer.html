@@ -1,26 +1,32 @@
 {% load static %}
 
-<footer class="footer-center bg-page text-white pt-4 pb-3 mt-5 border-top">
-    <div class="container d-flex flex-wrap justify-content-between align-items-center">
+<div class="container">
+  <footer class="footer bg-page text-white pt-4 pb-3 mt-5 border-top">
+    <div class="footer-content container d-flex flex-wrap justify-content-between align-items-center">
+
+      <!-- Logo + Direitos -->
       <div class="d-flex align-items-center">
-        <img src={% static 'logo/logo.png' %} alt="APREPI" class="mb-3 me-2 mb-md-0 text-body-secondary" style="width: 50px;" class="bi">
-      <span class="text-footer">&copy; {% now "Y" %} Aprepi</span>
-    </div>
+        <img src="{% static 'logo/logo.png' %}" alt="APREPI" class="me-2" style="width: 50px;">
+        <p class="footer-text mb-0">© {% now "Y" %} Aprepi</p>
+      </div>
 
-    <div class="text-footer">Rua Rui Barbosa s/n, Centro-Norte, Teresina-PI</div>
+      <!-- Endereço -->
+      <div>
+        <p class="footer-text mb-0">Rua Rui Barbosa s/n, Centro-Norte, Teresina-PI</p>
+      </div>
 
-    <ul class="nav">
-      <li class="ms-3">
-        <a class="text-footer" href="https://www.instagram.com/aprepi/" target="blank">
-          <i class="bi-instagram" class="bi" style="font-size: 1.5rem;"></i>
+      <!-- Redes sociais -->
+      <div class="social-icons d-flex">
+        <a href="https://www.instagram.com/aprepi/" class="social-icon ms-3 text-footer" target="_blank"
+          aria-label="Instagram">
+          <i class="bi bi-instagram" style="font-size: 1.5rem;"></i>
         </a>
-      </li>
+        <a href="https://www.facebook.com/renaispi/?locale=pt_BR" class="social-icon ms-3 text-footer" target="_blank"
+          aria-label="Facebook">
+          <i class="bi bi-facebook" style="font-size: 1.5rem;"></i>
+        </a>
+      </div>
 
-      <li class="ms-3">
-          <a class="text-footer" href="https://www.facebook.com/renaispi/?locale=pt_BR" target="blank">
-            <i class="bi-facebook" class="bi" style="font-size: 1.5rem;"></i>
-          </a>
-        </li>
-      </ul>
     </div>
   </footer>
+</div>

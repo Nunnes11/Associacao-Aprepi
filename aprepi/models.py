@@ -34,6 +34,13 @@ class About(models.Model):
 
 # Modelo que representa um 'Registro de usuários'
 class Register_Users(models.Model):
+
+    GENDER_CHOICES = (
+        ('M', 'Masculino'),
+        ('F', 'Feminino'),
+        ('O', 'Outro'),
+    )
+
     name = models.CharField(max_length=150, verbose_name='Nome')
     birth_date = models.DateField(verbose_name='Data de nascimento')
     city = models.CharField(max_length=150, verbose_name='Cidade')
@@ -49,11 +56,33 @@ class Register_Users(models.Model):
     '''Estamos armazenando a senha como um campo de texto, o que não é adequado; no formulário,
     usaremos o 'make_password' do Django para criptografar a senha antes de salvá-la.'''
     avatar = models.ImageField(upload_to='avatars/', blank=True, null=True, verbose_name='Avatar')
-   
 
+    # Novo campo de gênero
+    gender = models.CharField(
+        max_length=1,
+        choices=GENDER_CHOICES,
+        blank=True,
+        null=True,
+        verbose_name='Gênero'
+    )
+   
     def __str__(self):
         return self.name
     
+    @property
+    def first_name(self):
+    #Retorna o primeiro nome para usar na saudação.
+        return self.name.split()[0] if self.name else ''
+    
+    @property
+    # """Saudação pronta para usar no template: Bem-vindo / Bem-vinda / Bem-vindo(a).
+    def greeting(self):
+        if self.gender == 'M':
+            return f'Bem-vindo, {self.first_name}!'
+        if self.gender == 'F':
+            return f'Bem-vinda, {self.first_name}!'
+        return f'Bem-vindo(a), {self.first_name}!'
+
     class Meta:
         verbose_name = 'registro de usuário'
         verbose_name_plural = 'registros de usuários'

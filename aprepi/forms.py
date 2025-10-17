@@ -1,11 +1,8 @@
+import re
 from django import forms
+from django.core.exceptions import ValidationError
 from django.contrib.auth.hashers import make_password
 from .models import Register_Users, Testimonials, Comment_News, Reply_Comment
-
-# class MessageContactForm(forms.ModelForm):
-#      class Meta:
-#           model = Message_Contact
-#           fields = ['name', 'email', 'message']
 
 
 class RegisterUsersForm(forms.ModelForm):
@@ -14,7 +11,7 @@ class RegisterUsersForm(forms.ModelForm):
 
     class Meta:
         model = Register_Users
-        fields = ['name', 'birth_date', 'city', 'email', 'is_patient', 'avatar', 'password']
+        fields = ['name', 'birth_date', 'city', 'email', 'is_patient', 'avatar', 'gender', 'password']
         widgets = {
             'password': forms.PasswordInput(),
             'birth_date': forms.DateInput(attrs={'type': 'date'}),
@@ -23,8 +20,43 @@ class RegisterUsersForm(forms.ModelForm):
         labels = {
             'is_patient': 'É paciente renal?',
             'password': 'Senha',
+            'gender': 'Gênero',
         }
-        
+
+    # Validação do E-mail
+    def clean_email(self):
+         email = self.cleaned_data.get('email', '').strip()
+
+         # Verifica se há letras maiúsculas
+         if any(c.isupper() for c in email):
+              raise ValidationError('Por favor apenas letras minúsculas no e-mail.')
+         
+         # Verifica se o formato do e-mail é válido
+         if not re.match(r'^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$', email):
+              raise ValidationError('Por favor, forneça um e-mail válido')
+         
+         # Verifica se o e-mail já existe no banco
+         if Register_Users.objects.filter(email__iexact=email).exists():
+              raise ValidationError('E-mail já cadastro. Por favor use outro endereço.')
+         
+         return email
+    
+    # Validação da senha
+    def clean_password(self):
+         password = self.cleaned_data.get('password')
+
+         if len(password) < 8:
+              raise ValidationError('A senha deve ter pelo menos 8 caracteres.')
+         if not re.search(r'[A-Z]', password):
+              raise ValidationError('A senha deve conter pelo menos uma letra maiúscula.')
+         if not re.search(r'[a-z]', password):
+              raise ValidationError('A senha deve conter pelo menos uma letra minúscula')
+         if not re.search(r'[0-9]', password):
+              raise ValidationError('A senha deve conter pelo menos um número.')
+         
+         return password
+    
+    # Confirmação da senha
     def clean(self):
         cleaned_data = super().clean()
         password = cleaned_data.get('password')
@@ -32,7 +64,10 @@ class RegisterUsersForm(forms.ModelForm):
             
         if password and confirm_password and password != confirm_password:
                 self.add_error('confirm_password', 'Sua senha é diferente da primeira.')
-                
+
+        return cleaned_data
+
+    # Salvando senha criptografada
     def save(self, commit=True):
         user = super().save(commit=False)
         user.password = make_password(self.cleaned_data['password']) # A senha é criptografada.
@@ -43,12 +78,8 @@ class RegisterUsersForm(forms.ModelForm):
 class TestimonialsForm(forms.ModelForm):
      class Meta:
           model = Testimonials
-          fields = ['name', 'age', 'city', 'image', 'testimonial']
+          fields = ['testimonial']
           widgets = {
-               'name': forms.TextInput(attrs={'class': 'form-control'}),
-               'age': forms.NumberInput(attrs={'class': 'form-control'}),
-               'city': forms.TextInput(attrs={'class': 'form-control'}),
-               'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
                'testimonial': forms.Textarea(attrs={
                     'class': 'form-control',
                     'rows': 6,
