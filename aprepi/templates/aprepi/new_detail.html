@@ -4,55 +4,70 @@
 {% block content %}
 <div class="container mt-4">
   <h2>{{ new.title }}</h2>
-  <img src="{{ new.image.url }}" class="img-fluid mb-3" alt="Imagem da notícia" style="max-height: 400px; object-fit: cover;">
+  <img src="{{ new.image.url }}" class="img-fluid mb-3" alt="Imagem da notícia"
+    style="max-height: 400px; object-fit: cover;">
   <p>{{ new.text|linebreaks }}</p>
 
   <hr>
-<h5>Comentários</h5>
+  <h5>Comentários</h5>
 
-{% for comment in comments %}
+  {% for comment in comments %}
   <div class="mb-3 p-3">
     <strong>{{ comment.name }}</strong>
     <small class="text-muted">em {{ comment.created_at|date:"d/m/Y H:i" }}</small>
     <p>{{ comment.comment|linebreaks }}</p>
 
     <!-- Link 'responder' -->
-    <a href="javascript:void(0);" class="text-primary" onclick="toggleReplyForm({{ comment.id }})">responder</a>
+    <a href="javascript:void(0);" class="text-primary" onclick="toggleReplyForm('{{ comment.id }}')">responder</a>
 
     <!-- Respostas -->
     {% for reply in comment.replies.all %}
-      <div class="ms-4 mt-2 p-2 border-start border-primary">
-        <strong>{{ reply.name }}</strong> 
-        <small class="text-muted">em {{ reply.created_at|date:"d/m/Y H:i" }}</small>
-        <p>{{ reply.reply|linebreaks }}</p>
-      </div>
+    <div class="ms-4 mt-2 p-2 border-start border-primary">
+      <strong>{{ reply.name }}</strong>
+      <small class="text-muted">em {{ reply.created_at|date:"d/m/Y H:i" }}</small>
+      <p>{{ reply.reply|linebreaks }}</p>
+    </div>
     {% endfor %}
 
     <!-- Formulário de resposta oculto -->
     <div id="reply-form-{{ comment.id }}" class="mt-2 ms-4" style="display: none;">
       <form method="post">
         {% csrf_token %}
-        {{ reply_form.as_p }}
+        <p><strong>Respondendo como:</strong>
+          {% if request.session.user_name %}
+          {{ request.session.user_name }}
+          {% elif user.is_authenticated %}
+          {{ user.username }}
+          {% else %}
+          Anônimo
+          {% endif %}
+        </p>
+
+        <p>
+          <label for="id_reply_{{ comment.id }}">Responder:</label>
+          <textarea name="reply" cols="40" rows="2" required id="id_reply_{{ comment.id }}"
+            class="form-control"></textarea>
+        </p>
+
         <input type="hidden" name="comment_id" value="{{ comment.id }}">
         <button type="submit" name="reply_submit" class="btn btn-sm btn-outline-primary">Responder</button>
-        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="toggleReplyForm({{ comment.id }})">Cancelar</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary"
+          onclick="toggleReplyForm('{{ comment.id }}')">Cancelar</button>
       </form>
     </div>
   </div>
-{% endfor %}
+  {% endfor %}
 
-<hr>
-<!-- <h5>Deixe seu comentário</h5> -->
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" name="comment_submit" class="btn btn-primary">Enviar</button>
-</form>
+
+  <hr>
+  <!-- <h5>Deixe seu comentário</h5> -->
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" name="comment_submit" class="btn btn-primary">Enviar</button>
+  </form>
 
   <a href="{% url 'news_list' %}" class="btn btn-secondary mt-3">← Saiu na Imprensa</a>
   <a href="{% url 'reception_page' %}" class="btn btn-primary mt-3">Página inicial</a>
 </div>
 {% endblock content %}
-
-
-

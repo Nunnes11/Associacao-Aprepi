@@ -98,7 +98,7 @@ class CommentNewsForm(forms.ModelForm):
 class ReplyCommentForm(forms.ModelForm):
      class Meta:
           model = Reply_Comment
-          fields = ['name', 'reply']
+          fields = ['reply']
           widgets = {
                'name': forms.TextInput(attrs={'class': 'forms-control'}),
                'reply': forms.Textarea(attrs={

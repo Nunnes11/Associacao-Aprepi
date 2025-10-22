@@ -187,6 +187,18 @@ def new_detail(request, id):
                 reply = reply_form.save(commit=False)
                 comment_id = request.POST.get('comment_id')
                 reply.comment = get_object_or_404(Comment_News, id=comment_id)
+
+                #Adiciona o mesmo tratamento de nome do usuário
+                user_id = request.session.get('user_id')
+                if user_id:
+                    try:
+                        usuario = Register_Users.objects.get(id=user_id)
+                        reply.name = usuario.name
+                    except Register_Users.DoesNotExist:
+                        reply.name = 'Anônimo'
+                else:
+                    reply.name = 'Anônimo'
+
                 reply.save()
                 return redirect('new_detail', id=new.id)
 
