@@ -1,0 +1,7 @@
+/* Evita rolagem desnecessária em páginas curtas */
+body.no-scroll {
+  overflow-x: hidden; /* evita scroll lateral */
+  overflow-y: auto;   /* mantém scroll só se for realmente necessário */
+}
+
+

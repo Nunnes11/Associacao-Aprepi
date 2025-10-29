@@ -1,0 +1,152 @@
+/* Arquivo renomeado com extensão .css e ajustes para corrigir o banner e o estilo do texto */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.historia-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: rgba(184, 169, 217, 0.4);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Image Banner: usando a estrutura do Bootstrap (row/col), não grid para evitar conflitos */
+.image-banner {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+}
+
+.image-banner .col-6,
+.image-banner .col-md-3 {
+    padding: 0; /* remove espaços entre colunas para que as imagens fiquem encostadas */
+}
+
+.banner-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.banner-image:hover {
+    transform: scale(1.05);
+}
+
+/* Classe para banner full-width (arquivo único com as 4 imagens juntas) */
+.full-banner {
+    height: auto; /* evita corte vertical */
+    display: block;
+    object-fit: contain; /* mantém proporção inteira da imagem */
+}
+
+/* Content Section */
+.content-section {
+    padding: 50px 60px;
+}
+
+.page-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #1a1a2e;
+    margin-bottom: 30px;
+}
+
+.history-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #1a1a2e;
+    text-align: justify; /* justificado */
+}
+
+.history-text p {
+    margin-bottom: 0; /* sem espaçamento entre parágrafos */
+    text-indent: 2em; /* recuo na primeira linha */
+}
+
+/* Voltar Button */
+.voltar-container {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .image-banner {
+        height: 200px;
+    }
+
+    .content-section {
+        padding: 40px 30px;
+    }
+
+    .page-title {
+        font-size: 28px;
+        text-align: center;
+    }
+
+    .history-text {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .image-banner {
+        height: auto;
+    }
+
+    .banner-image {
+        height: 150px;
+    }
+
+    .content-section {
+        padding: 30px 20px;
+    }
+
+    .page-title {
+        font-size: 24px;
+    }
+
+    .history-text {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .history-text p {
+        text-indent: 1.5em;
+    }
+}
+
+/* Animations */
+.historia-container {
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.content-section {
+    animation: slideUp 0.8s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

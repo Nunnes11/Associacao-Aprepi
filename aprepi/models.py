@@ -311,7 +311,7 @@ class EventVideo(models.Model):
     def __str__(self):
         return f"Vídeo:{self.description[:30]}"
     
-    # Sobrescrevendo o 'método delete' para o campo 'image'
+    # Sobrescrevendo o 'método delete' para o campo 'vídeo'
     # Remove o thumbnail do disco
     def delete(self, *args, **kwargs):
         if self.thumbnail and os.path.isfile(self.thumbnail.path):

@@ -43,7 +43,25 @@
         <div class="welcome-text">{{ current_user.greeting }}</div>
       </div>
       <img src="{{ user_avatar_url }}" alt="Avatar do usuário" class="user-avatar" />
-      <a href="{% url 'logout' %}" class="logout-btn">LOGOUT</a>
+      <a href="#" class="logout-btn" data-bs-toggle="modal" data-bs-target="#logoutModal">
+        LOGOUT
+      </a>
     </div>
   </nav>
 </div> <!-- 🔹 Fecha container -->
+
+<!-- Modal de Confirmação de Logout -->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center p-4" style="border-radius: 18px;">
+      <div class="modal-body">
+        <div style="font-size: 44px; line-height: 1;">😔</div>
+        <h5 class="mt-3">Quer mesmo sair do site?</h5>
+        <div class="mt-4 d-flex justify-content-center gap-3">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <a href="{% url 'logout' %}" class="btn btn-danger px-4">Sair</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

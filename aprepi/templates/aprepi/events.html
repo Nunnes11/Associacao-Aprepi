@@ -1,44 +1,57 @@
 {% extends 'aprepi/base_clear.html' %}
 {% load static %}
 
-{% block body_class %}
-  bg-documents
-{% endblock %}
-
 {% block content %}
-  <div class="container my-5">
-    <h2 class="fw-bold">Nossos Eventos</h2>
+  <div class="eventos-container">
 
-    <div class="row">
+  <!-- IMAGENS -->
+  <section class="section">
+    <h2 class="section-title">Imagens</h2>
+    <div class="events-grid">
       {% for img in images %}
-        <div class="col-md-3 col-6 text-center mt-4">
-          <img src="{{ img.image.url }}"
-               alt="Imagem de evento"
-               class="img-fluid" style="height: 200px; width: 100%; object-fit: cover;" />
-          <p class="mt-2 small text-truncate" title="{{ img.description }}">{{ img.description }}</p>
+        <div class="event-card" onclick="openModal('image', '{{ img.image.url }}')">
+          <div class="event-image-container">
+            <img src="{{ img.image.url }}" alt="{{ img.description|default:'Imagem de evento' }}" class="event-image" />
+          </div>
+          <div class="event-description">
+            <p class="event-text">{{ img.description|truncatechars:100 }}</p>
+          </div>
         </div>
+      {% empty %}
+        <p>Nenhuma imagem de evento cadastrada.</p>
       {% endfor %}
     </div>
+  </section>
 
-    <h3 class="fw-bold mt-5">Vídeos</h3>
-
-    <div class="row">
+  <!-- VÍDEOS -->
+  <section class="section">
+    <h2 class="section-title">Vídeos</h2>
+    <div class="events-grid">
       {% for video in videos %}
-        <div class="col-md-4 col-12 text-center mt-4">
-          <video controls class="img-fluid" style="max-height: 200px;">
-            <source src="{{ video.video.url }}" type="video/mp4" />Seu navegador não suporta a reprodução de vídeo.
-          </video>
-          <p class="mt-2 small text-truncate" title="{{ video.description }}">{{ video.description }}</p>
+        <div class="event-card" onclick="openModal('video', '{{ video.video.url }}')">
+          <div class="event-image-container">
+            <img src="{{ video.thumbnail.url }}" alt="{{ video.description|default:'Vídeo de evento' }}" class="event-image" />
+            <div class="play-icon"></div>
+          </div>
+          <div class="event-description">
+            <p class="event-text">{{ video.description|truncatechars:100 }}</p>
+          </div>
         </div>
+      {% empty %}
+        <p>Nenhum vídeo de evento cadastrado.</p>
       {% endfor %}
     </div>
+  </section>
 
-    <div class="d-flex flex-column align-items-center mt-5">
-      <a href="{% url 'reception_page' %}" class="btn btn-primary">Voltar</a>
-    </div>
+  <!-- BOTÃO VOLTAR -->
+  <div class="voltar-container">
+    <a href="{% url 'reception_page' %}" class="btn btn-primary">Voltar</a>
   </div>
-{% endblock %}
+</div>
 
-{% block scripts %}
-  <!-- Se necessário, você pode adicionar um script JS aqui futuramente -->
+<!-- MODAL -->
+<div class="modal" id="mediaModal">
+  <span class="modal-close" onclick="closeModal()">&times;</span>
+  <div id="modalContent"></div>
+</div>
 {% endblock %}

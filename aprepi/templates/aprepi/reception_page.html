@@ -52,12 +52,11 @@
         {% for t in testimonials %}
         <div class="col-md-4 col-lg-3 mb-4">
           <article class="card testimonial-card text-center h-100">
-            {% if t.image %}
+            {% if t.image and t.image.url %}
             <img src="{{ t.image.url }}" alt="Foto de {{ t.name }}" class="card-img-top" />
             {% else %}
             <img src="{% static 'img/avatar.png' %}" alt="Avatar padrão" class="card-img-top" />
             {% endif %}
-
 
             <div class="card-body">
               <h3 class="card-title">{{ t.name }}</h3>

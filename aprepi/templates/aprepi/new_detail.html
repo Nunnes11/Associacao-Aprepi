@@ -2,11 +2,17 @@
 {% load static %}
 
 {% block content %}
-<div class="container mt-4">
+<link rel="stylesheet" href="{% static 'css/news_detail.css' %}">
+
+<div class="news-detail-container container mt-4">
   <h2>{{ new.title }}</h2>
+
   <img src="{{ new.image.url }}" class="img-fluid mb-3" alt="Imagem da notícia"
     style="max-height: 400px; object-fit: cover;">
-  <p>{{ new.text|linebreaks }}</p>
+
+  <div class="news-text">
+    <p>{{ new.text|linebreaks }}</p>
+  </div>
 
   <hr>
   <h5>Comentários</h5>
@@ -17,10 +23,8 @@
     <small class="text-muted">em {{ comment.created_at|date:"d/m/Y H:i" }}</small>
     <p>{{ comment.comment|linebreaks }}</p>
 
-    <!-- Link 'responder' -->
     <a href="javascript:void(0);" class="text-primary" onclick="toggleReplyForm('{{ comment.id }}')">responder</a>
 
-    <!-- Respostas -->
     {% for reply in comment.replies.all %}
     <div class="ms-4 mt-2 p-2 border-start border-primary">
       <strong>{{ reply.name }}</strong>
@@ -29,7 +33,6 @@
     </div>
     {% endfor %}
 
-    <!-- Formulário de resposta oculto -->
     <div id="reply-form-{{ comment.id }}" class="mt-2 ms-4" style="display: none;">
       <form method="post">
         {% csrf_token %}
@@ -58,9 +61,8 @@
   </div>
   {% endfor %}
 
-
   <hr>
-  <!-- <h5>Deixe seu comentário</h5> -->
+
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}

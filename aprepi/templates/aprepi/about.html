@@ -3,26 +3,29 @@
 
 {% block content %}
 
-  {% for about in abouts %}
-    <div class="about-container">
-      <!-- Seção da Imagem -->
-      <div class="image-section">
-        {% if about.image %}
-          <img src="{{ about.image.url }}" alt="{{ about.name }}" />
-        {% endif %}
+{% for about in abouts %}
+<div class="about-container">
+  <!-- Seção da Imagem -->
+  <div class="image-section">
+    {% if about.image %}
+    <img src="{{ about.image.url }}" alt="{{ about.name }}" />
+    {% endif %}
+  </div>
+
+  <!-- Seção do Conteúdo -->
+  <div class="content-section">
+    <div class="content-main">
+      <h1 class="about-title">{{ about.name }}</h1>
+
+      <div class="about-text">
+        {{ about.description|linebreaks }}
       </div>
 
-      <!-- Seção do Conteúdo -->
-      <div class="content-section">
-        <div class="content-main">
-          <h1 class="about-title">{{ about.name }}</h1>
-          <p class="about-text">{{ about.description|linebreaks }}</p>
-
-          <div class="d-flex justify-content-center my-4">
-            <a href="{% url 'home' %}" class="voltar-btn">Voltar</a>
-          </div>
-        </div>
+      <div class="d-flex justify-content-center my-4">
+        <a href="{% url 'home' %}" class="btn btn-primary">Voltar</a>
       </div>
     </div>
-  {% endfor %}
+  </div>
+</div>
+{% endfor %}
 {% endblock %}

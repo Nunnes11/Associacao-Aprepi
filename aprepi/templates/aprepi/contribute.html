@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% block body_class %}no-scroll{% endblock %}
+
 {% block content %}
 <div class="container my-5">
   <div class="row align-items-center">
@@ -48,15 +50,15 @@
       </ul>
     </div>
 
-      <!-- Coluna da imagem -->
-      <div class="col-md-5 text-center mt-2 mt-md-0">
-        <img src="{% static 'img/Doacoes.png' %}" alt="Contribua com a Aprepi" class="img-fluid rounded-3 shadow-sm">
-      </div>
+    <!-- Coluna da imagem -->
+    <div class="col-md-5 text-center mt-2 mt-md-0">
+      <img src="{% static 'img/Doacoes.png' %}" alt="Contribua com a Aprepi" class="img-fluid rounded-3 shadow-sm">
     </div>
+  </div>
 
-      <div class="d-flex flex-column align-items-center mt-4">
-        <a href="{% url 'reception_page' %}" class="btn btn-primary">Voltar</a>
-      </div>
+  <div class="voltar-container mt-1 text-center">
+    <a href="{% url 'reception_page' %}" class="btn btn-primary">Voltar</a>
   </div>
 </div>
+
 {% endblock %}

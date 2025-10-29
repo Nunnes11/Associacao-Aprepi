@@ -4,38 +4,39 @@
 {% block body_class %}bg-documents{% endblock %}
 
 {% block content %}
-  <div class="container my-5">
-    <h2 class="fw-bold">ATAS</h2>
+<div class="container my-5">
+  <h2 class="fw-bold">ATAS</h2>
 
-    <div class="input-group my-4">
-      <input type="text" id="searchInput" class="form-control" placeholder="Pesquisar documento" aria-label="Pesquisar documento">
+  <div class="input-group my-4">
+    <input type="text" id="searchInput" class="form-control" placeholder="Pesquisar documento"
+      aria-label="Pesquisar documento">
+  </div>
+
+  <div id="documentsList" class="row">
+    {% for ata in atas %}
+    <div class="col-md-2 col-6 text-center mt-5 document-card">
+      <a href="{{ ata.file.url }}" target="_blank" class="text-decoration-none text-dark">
+        {% if ata.thumbnail %}
+        <img src="{{ ata.thumbnail.url }}" alt="PDF" class="img-fluid" style="max-height: 120px;" />
+        {% else %}
+        <img src="{% static 'img/pdf-icon.png' %}" alt="PDF" class="img-fluid" style="max-height: 120px;" />
+        {% endif %}
+
+        <p class="mt-2 small text-truncate" title="{{ ata.title }}">{{ ata.title }}</p>
+      </a>
     </div>
+    {% empty %}
+    <p>Nenhum documento disponível.</p>
+    {% endfor %}
 
-    <div id = "documentsList" class="row">
-      {% for ata in atas %}
-        <div class="col-md-2 col-6 text-center mt-5 document-card">
-          <a href="{{ ata.file.url }}" target="_blank" class="text-decoration-none text-dark">
-            {% if ata.thumbnail %}
-              <img src="{{ ata.thumbnail.url }}" alt="PDF" class="img-fluid" style="max-height: 120px;" />
-            {% else %}
-              <img src="{% static 'img/pdf-icon.png' %}" alt="PDF" class="img-fluid" style="max-height: 120px;" />
-            {% endif %}
-
-            <p class="mt-2 small text-truncate" title="{{ ata.title }}">{{ ata.title }}</p>
-          </a>
-        </div>
-      {% empty %}
-        <p>Nenhum documento disponível.</p>
-      {% endfor %}
-
-      <div class="d-flex flex-column align-items-center">
+    <div class="voltar-container mt-4 text-center">
       <a href="{% url 'reception_page' %}" class="btn btn-primary">Voltar</a>
     </div>
-    
-    </div>
+
   </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
-  <script src="{% static 'js/search_bar.js' %}"></script>
+<script src="{% static 'js/search_bar.js' %}"></script>
 {% endblock %}

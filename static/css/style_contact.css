@@ -3,13 +3,6 @@
     padding: 0;
     box-sizing: border-box;
 }
-/* 
-body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #8d97d5, #e8e9f3);
-    min-height: 100vh;
-    padding: 20px 10px;
-} */
 
 .contact-container {
     max-width: 1200px;
@@ -127,25 +120,6 @@ body {
     display: flex;
     justify-content: center;
     margin-top: 1px;
-}
-
-.voltar-btn {
-    background: linear-gradient(45deg, #4a90e2, #7bb3f0);
-    color: white;
-    padding: 15px 40px;
-    border: none;
-    border-radius: 8px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-}
-
-.voltar-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(74, 144, 226, 0.4);
 }
 
 /* Responsive Design */
