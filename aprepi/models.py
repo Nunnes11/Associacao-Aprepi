@@ -2,6 +2,7 @@ from django.db import models
 from pdf2image import convert_from_path
 from django.core.files.base import ContentFile
 from io import BytesIO
+from tinymce.models import HTMLField
 import os
 
 
@@ -390,7 +391,7 @@ class Directors(models.Model):
 class Contribute(models.Model):
     title = models.CharField(max_length=50, verbose_name='Título')
     image = models.ImageField(upload_to='contribute/', verbose_name='Imagem', blank=True, null=True)
-    description = models.TextField(verbose_name='Descrição', blank=True, null=True)
+    description = HTMLField(verbose_name='Descrição', blank=True, null=True)
 
     # Sobrescrevendo o 'método save' para o campo 'image'
     def save(self, *args, **kwargs):

@@ -27,6 +27,7 @@ handler404 = 'Associacao.views.custom_page_not_found'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('aprepi.urls')),
+    path('tinymce/', include('tinymce.urls')),
 ]
 
 if settings.DEBUG:
