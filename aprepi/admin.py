@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Register_Users, Recent_News, Comment_News, Testimonials, History, Documents, Ata, EventImage, EventVideo, Directors, About
+from .models import Register_Users, Recent_News, Comment_News, Testimonials, History, Documents, Ata, EventImage, EventVideo, Directors, About, Contact, Contribute
 from django.utils.html import format_html
 
 
@@ -7,16 +7,26 @@ from django.utils.html import format_html
 class AboutAdmin(admin.ModelAdmin):
     list_display = ['name', 'image', 'description']
 
+'''------------------------------------------'''
 
-# @admin.register(Message_Contact)
-# class MessageContactAdmin(admin.ModelAdmin):
-#     list_display = ['name', 'email', 'message']
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    search_fields = ['title', 'description']
 
+    def has_add_permission(self, request):
+        # Impede adicionar novo contato se já houver um
+        if Contact.objects.exists():
+            return False
+        return True
+
+'''------------------------------------------'''
 
 @admin.register(Register_Users)
 class RegisterUsersAdmin(admin.ModelAdmin):
     list_display = ['name', 'birth_date', 'city', 'email', 'gender']
 
+'''------------------------------------------'''
 
 @admin.register(Recent_News)
 class RecentNewsAdmin(admin.ModelAdmin):
@@ -32,9 +42,13 @@ class RecentNewsAdmin(admin.ModelAdmin):
         return (obj.text[:50] + '...') if len(obj.text) > 50 else obj.text
     short_text.short_description = 'Texto'
 
+'''------------------------------------------'''
+
 @admin.register(Comment_News)
 class CommentNewsAdmin(admin.ModelAdmin):
     list_display = ['name', 'comment', 'created_at']
+
+'''------------------------------------------'''
 
 @admin.register(Testimonials)
 class TestimonialsAdmin(admin.ModelAdmin):
@@ -50,11 +64,13 @@ class TestimonialsAdmin(admin.ModelAdmin):
         return "-"
     image_tag.short_description = 'Imagem'
 
+'''------------------------------------------'''
 
 @admin.register(History)
 class HistoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'image', 'description']
 
+'''------------------------------------------'''
 
 @admin.register(Documents)
 class DocumentsAdmin(admin.ModelAdmin):
@@ -68,6 +84,7 @@ class DocumentsAdmin(admin.ModelAdmin):
 
     thumbnail_preview.short_description = "Miniatura"
 
+'''------------------------------------------'''
 
 @admin.register(Ata)
 class AtaAdmin(admin.ModelAdmin):
@@ -81,17 +98,27 @@ class AtaAdmin(admin.ModelAdmin):
 
     thumbnail_preview.short_description = "Miniatura"
 
+'''------------------------------------------'''
 
 @admin.register(EventImage)
 class EventImageAdmin(admin.ModelAdmin):
     list_display = ['description', 'created_at']
 
+'''------------------------------------------'''
 
 @admin.register(EventVideo)
 class EventVideoAdmin(admin.ModelAdmin):
     list_display = ['description', 'created_at']
 
+'''------------------------------------------'''
 
 @admin.register(Directors)
 class DirectorsAdmin(admin.ModelAdmin):
     list_display = ['name', 'image', 'description']
+
+'''------------------------------------------'''
+
+@admin.register(Contribute)
+class ContributeAdmin(admin.ModelAdmin):
+    list_display = ['title']
+    search_fields = ['title', 'description']

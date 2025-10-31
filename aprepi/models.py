@@ -32,6 +32,36 @@ class About(models.Model):
         verbose_name = 'sobre'
         verbose_name_plural = 'sobre'
 
+
+# Modelo que representa um 'Contato'
+class Contact(models.Model):
+    title = models.CharField(max_length=50, verbose_name='Título')
+    image = models.ImageField(upload_to='contact/', verbose_name='Imagem', blank=True, null=True)
+    description = models.TextField(verbose_name='Descrição', blank=True, null=True)
+
+    # Sobrescrevendo o 'método save' para o campo 'image'
+    def save(self, *args, **kwargs):
+        if self.pk:
+            old_image = Contact.objects.get(pk=self.pk).image
+            if old_image and old_image != self.image:
+                if os.path.isfile(old_image.path):
+                    os.remove(old_image.path)
+        super().save(*args, **kwargs)
+
+    # Sobrescrevendo o 'método delete' para o campo 'image'
+    def delete(self, *args, **kwargs):
+        if self.image and os.path.isfile(self.image.path):
+            os.remove(self.image.path)
+        super().delete(*args, **kwargs)
+
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name = 'contato'
+        verbose_name_plural = 'contatos'
+
+
 # Modelo que representa um 'Registro de usuários'
 class Register_Users(models.Model):
 
@@ -86,6 +116,7 @@ class Register_Users(models.Model):
     class Meta:
         verbose_name = 'registro de usuário'
         verbose_name_plural = 'registros de usuários'
+        
 
 # Modelo que representa o campo 'Notícias Recentes'
 class Recent_News(models.Model):
@@ -282,7 +313,7 @@ class Ata(models.Model):
 
 #------------------------ SUBLINK EVENTOS ------------------------#
 
-'''Modelo que representa o campo de IMAGENS'''
+'''Modelo que representa o campo de EVENTOS'''
 class EventImage(models.Model):
     image = models.ImageField(upload_to='event_image/', verbose_name='Imagem')
     description = models.TextField(max_length=250, blank=True, verbose_name='Descrição')
@@ -354,3 +385,31 @@ class Directors(models.Model):
         verbose_name = 'diretoria'
         verbose_name_plural = 'diretoria'
 
+#------------------------ LINK CONTRIBUA ------------------------#
+
+class Contribute(models.Model):
+    title = models.CharField(max_length=50, verbose_name='Título')
+    image = models.ImageField(upload_to='contribute/', verbose_name='Imagem', blank=True, null=True)
+    description = models.TextField(verbose_name='Descrição', blank=True, null=True)
+
+    # Sobrescrevendo o 'método save' para o campo 'image'
+    def save(self, *args, **kwargs):
+        if self.pk:
+            old_image = Contribute.objects.get(pk=self.pk).image
+            if old_image and old_image != self.image:
+                if os.path.isfile(old_image.path):
+                    os.remove(old_image.path)
+        super().save(*args, **kwargs)
+
+    # Sobrescrevendo o 'método delete' para o campo 'image'
+    def delete(self, *args, **kwargs):
+        if self.image and os.path.isfile(self.image.path):
+            os.remove(self.image.path)
+        super().delete(*args, **kwargs)
+
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name = 'contribua'
+        verbose_name_plural = 'contribua'

@@ -7,12 +7,8 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
 
     path('register_users/', views.register_users, name='register_users'),
-    # path('list_users/', views.list_users, name='list_users'),
-    # path('update_user<int:id>/', views.update_user, name='update_user'),
-    # path('delete_user<int:id>/', views.delete_user, name='delete_user'),
-    path('archive_user<int:id>/', views.archive_user, name='archive_user'),
 
-    # path('list_patients/', views.list_patients, name='list_patients'),
+    path('archive_user<int:id>/', views.archive_user, name='archive_user'),
 
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),

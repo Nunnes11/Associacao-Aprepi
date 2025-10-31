@@ -4,7 +4,7 @@ from django.contrib.auth.hashers import check_password
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import user_passes_test
 from django.templatetags.static import static
-from .models import Register_Users, Recent_News, Comment_News, Testimonials, History, Documents, Ata, EventImage, EventVideo, Directors, About
+from .models import Register_Users, Recent_News, Comment_News, Testimonials, History, Documents, Ata, EventImage, EventVideo, Directors, About, Contact, Contribute
 from .forms import RegisterUsersForm, TestimonialsForm, CommentNewsForm, ReplyCommentForm
 from .decorators import is_patient
 from datetime import date
@@ -19,7 +19,8 @@ def about(request):
     return render(request, 'aprepi/about.html', {'abouts': abouts})
 
 def contact(request):
-    return render(request, 'aprepi/contact.html')
+    contact = Contact.objects.first()
+    return render(request, 'aprepi/contact.html', {'contact': contact})
 
 #------------CADASTRO------------#
 
@@ -139,10 +140,11 @@ def director(request):
 #-------------------Link CONTRIBUA-------------------#
 
 def contribute(request):
-    return render(request, 'aprepi/contribute.html')
+    contribute = Contribute.objects.first()
+    return render(request, 'aprepi/contribute.html', {'contribute': contribute})
 
 
-#-----FUNÇÕES PARA OS CAMPOS DA PÁGINA PRINCIPAL-----#
+#--------FUNÇÕES PARA OS CAMPOS DA PÁGINA PRINCIPAL-------#
 
 #----------------Campo 'Notícias Recentes'----------------#
 

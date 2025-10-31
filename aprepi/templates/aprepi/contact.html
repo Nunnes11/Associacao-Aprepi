@@ -5,43 +5,38 @@
 
 {% block content %}
 <div class="contact-container">
-        <!-- Seção de Informações -->
-        <div class="info-section">
-            <h1 class="info-title">Nosso endereço</h1>
-            
-            <div class="address-info">
-                <h5>
-                Rua Rui Barbosa s/n<br>
-                Edifício Carlos Castelo Branco, Centro - Norte<br>
-                Teresina - PI<br>
-                Próximo ao Ginásio Verdão.<br><br>
-                Telefone: (86) 3223-7355 (manhã)<br>
-                Cel.: (86) 98815-9568 / (86) 98875-6618<br><br>
-                Email: renaisaprepi@gmail.com
-                </h5>
-            </div>
+    <!-- Seção de Informações -->
+    <div class="info-section">
+        <h1 class="info-title">{{ contact.title }}</h1>
 
-            <div class="social-icons">
-                <a class="text-black" href="https://www.facebook.com/renaispi/?locale=pt_BR" target="blank">
-                    <i class="bi-facebook" class="bi" style="font-size: 1.5rem;"></i>
-                </a>
-
-                <a class="text-black" href="https://www.instagram.com/aprepi/" target="blank">
-                    <i class="bi-instagram" class="bi" style="font-size: 1.5rem;"></i>
-                </a>
-            </div>
+        <div class="address-info">
+            <h5>{{ contact.description|linebreaks }}</h5>
         </div>
 
-        <!-- Seção da Logo -->
-        <div class="logo-section">
-            <div class="logo-container">
-                <img src="{% static 'img/logo_contact.png' %}" alt="Logo APREZ - Associação dos Pacientes Renais Crônicos do Piauí" class="logo-image">
-            </div>
-        </div>
-
-        <!-- Botão Voltar -->
-        <div class="voltar-container">
-            <a href="{% url 'home' %}" class="btn btn-primary">Voltar</a>
+        <div class="social-icons">
+            <a class="text-black" href="https://www.facebook.com/renaispi/?locale=pt_BR" target="_blank">
+                <i class="bi-facebook" style="font-size: 1.5rem;"></i>
+            </a>
+            <a class="text-black" href="https://www.instagram.com/aprepi/" target="_blank">
+                <i class="bi-instagram" style="font-size: 1.5rem;"></i>
+            </a>
         </div>
     </div>
+
+    <!-- Seção da Logo -->
+    <div class="logo-section">
+        <div class="logo-container">
+            {% if contact.image %}
+                <img src="{{ contact.image.url }}" alt="{{ contact.title }}" class="logo-image">
+            {% else %}
+                <img src="{% static 'img/logo_contact.png' %}" alt="Logo APREPI" class="logo-image">
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Botão Voltar -->
+    <div class="voltar-container">
+        <a href="{% url 'home' %}" class="btn btn-primary">Voltar</a>
+    </div>
+</div>
 {% endblock content %}

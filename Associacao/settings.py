@@ -156,13 +156,14 @@ JAZZMIN_SETTINGS = {
 }
 
 JAZZMIN_UI_TWEAKS = {
-"theme": "cyborg", # temas bootstrap prontos
-"navbar": "navbar-dark",
-"sidebar": "sidebar-dark-primary",
-"footer_fixed": True,
-"navbar_fixed": True,
-"sidebar_fixed": True,
+    "theme": "flatly",  # tema claro
+    "navbar": "navbar-primary",
+    "sidebar": "sidebar-primary",
+    "footer_fixed": True,
+    "navbar_fixed": True,
+    "sidebar_fixed": True,
 }
+
 
 
 
