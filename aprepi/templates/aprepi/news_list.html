@@ -11,7 +11,8 @@
         <div class="card mb-4 flex-fill h-100">
           <img src="{{ new.image.url }}" class="card-img-top" alt="Imagem da notícia"
                style="height: 200px; object-fit: cover;" />
-          <div class="card-body text-center d-flex flex-column justify-content-between">
+          <div class="card-body text-center d-flex flex-column justify-content-between"
+               style="background-color: #bacfe7;">
             <div>
               <h5 class="card-title">{{ new.title|truncatechars:50 }}</h5>
               <p class="card-text">{{ new.text|truncatechars:100 }}</p>
