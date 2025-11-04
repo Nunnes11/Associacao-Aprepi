@@ -5,7 +5,44 @@ from io import BytesIO
 from tinymce.models import HTMLField
 import os
 
+# Modelo que representa um 'Carrossel'
+class Carousel(models.Model):
+    titulo = models.CharField(max_length=100, verbose_name='Título')
+    image1 = models.ImageField(upload_to='carroussel/', verbose_name='Imagem 1')
+    image2 = models.ImageField(upload_to='carroussel/', verbose_name='Imagem 2')
+    image3 = models.ImageField(upload_to='carroussel/', verbose_name='Imagem 3')
 
+    # Sobrescrevendo o 'método save' para o campo 'image'
+    def save(self, *args, **kwargs):
+        """Remove as imagens antigas se forem substituídas."""
+        if self.pk:
+            old = Carousel.objects.get(pk=self.pk)
+            for field in ['image1', 'image2', 'image3']:
+                old_image = getattr(old, field)
+                new_image = getattr(self, field)
+                if old_image and old_image != new_image:
+                    if os.path.isfile(old_image.path):
+                        os.remove(old_image.path)
+        super().save(*args, **kwargs)
+
+    # Sobrescrevendo o 'método delete' para o campo 'image'
+    def delete(self, *args, **kwargs):
+        """Remove as imagens do sistema de arquivos ao deletar o objeto."""
+        for field in ['image1', 'image2', 'image3']:
+            image = getattr(self, field)
+            if image and os.path.isfile(image.path):
+                os.remove(image.path)
+        super().delete(*args, **kwargs)
+
+    def __str__(self):
+        return self.titulo
+    
+    class Meta:
+        verbose_name = 'carrossel'
+        verbose_name_plural = 'carrosseis'
+
+
+# Modelo que representa 'Sobre'
 class About(models.Model):
     name = models.CharField(max_length=150, verbose_name='Nome')
     image = models.ImageField(upload_to='about/', verbose_name='Imagem', blank=True, null=True)

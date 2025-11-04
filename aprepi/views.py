@@ -4,7 +4,7 @@ from django.contrib.auth.hashers import check_password
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import user_passes_test
 from django.templatetags.static import static
-from .models import Register_Users, Recent_News, Comment_News, Testimonials, History, Documents, Ata, EventImage, EventVideo, Directors, About, Contact, Contribute
+from .models import Carousel, Register_Users, Recent_News, Comment_News, Testimonials, History, Documents, Ata, EventImage, EventVideo, Directors, About, Contact, Contribute
 from .forms import RegisterUsersForm, TestimonialsForm, CommentNewsForm, ReplyCommentForm
 from .decorators import is_patient
 from datetime import date
@@ -12,7 +12,8 @@ from datetime import date
 #------------MENU PÚBLICO (HOME)------------#
 
 def home(request):
-    return render(request, 'aprepi/home.html')
+    carousel = Carousel.objects.first()
+    return render(request, 'aprepi/home.html', {'carousel' : carousel})
 
 def about(request):
     abouts = About.objects.all()

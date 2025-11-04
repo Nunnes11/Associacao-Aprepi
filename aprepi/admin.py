@@ -1,7 +1,13 @@
 from django.contrib import admin
-from .models import Register_Users, Recent_News, Comment_News, Testimonials, History, Documents, Ata, EventImage, EventVideo, Directors, About, Contact, Contribute
+from .models import Carousel, Register_Users, Recent_News, Comment_News, Testimonials, History, Documents, Ata, EventImage, EventVideo, Directors, About, Contact, Contribute
 from django.utils.html import format_html
 
+
+@admin.register(Carousel)
+class CarouselAdmin(admin.ModelAdmin):
+    list_display = ['titulo']
+
+'''------------------------------------------'''
 
 @admin.register(About)
 class AboutAdmin(admin.ModelAdmin):
