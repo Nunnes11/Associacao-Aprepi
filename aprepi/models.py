@@ -202,7 +202,7 @@ class Comment_News(models.Model):
         verbose_name_plural = 'comentários'
 
 
-# Modelo que representa uma resposta ao comentário de uma notícia
+# Modelo que representa uma 'Resposta ao Comentário de uma Notícia'
 class Reply_Comment(models.Model):
     comment = models.ForeignKey(Comment_News, on_delete=models.CASCADE, related_name='replies')
     name = models.CharField(max_length=150, verbose_name='Nome')

@@ -38,16 +38,6 @@ def register_users(request):
         form = RegisterUsersForm()
     return render(request, 'aprepi/register_users.html', {'form':form})
 
-
-#-------FUNÇÃO PARA ARQUIVAR USUÁRIOS--------#
-
-def archive_user(request, id):
-    user = get_object_or_404(Register_Users, id=id)
-    user.is_archived = True
-    user.save()
-    return redirect('list_users')
-
-
 #-------FUNÇÃO PARA IMPLEMENTAR 'LOGIN'-------#
 
 def login(request):

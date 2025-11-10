@@ -31,6 +31,7 @@ class ContactAdmin(admin.ModelAdmin):
 @admin.register(Register_Users)
 class RegisterUsersAdmin(admin.ModelAdmin):
     list_display = ['name', 'birth_date', 'city', 'email', 'gender']
+    exclude = ['is_archived']
 
 '''------------------------------------------'''
 
