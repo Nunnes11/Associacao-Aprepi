@@ -49,11 +49,14 @@ function closeModal() {
 }
 
 // Close modal when clicking outside content
-document.getElementById('mediaModal').addEventListener('click', function (e) {
-    if (e.target === this) {
-        closeModal();
-    }
-});
+var mediaModal = document.getElementById('mediaModal');
+if (mediaModal) {
+    mediaModal.addEventListener('click', function (e) {
+        if (e.target === this) {
+            closeModal();
+        }
+    });
+}
 
 // Close modal with ESC key
 document.addEventListener('keydown', function (e) {

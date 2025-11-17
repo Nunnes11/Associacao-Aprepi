@@ -30,3 +30,10 @@ logoContainer.addEventListener('click', function () {
         this.style.transform = 'scale(1.05)';
     }, 150);
 });
+// Código para adicionar evento de clique ao elemento
+var el = document.getElementById('id-do-elemento');
+if (el) {
+    el.addEventListener('click', function() {
+        // ...código...
+    });
+}

@@ -25,6 +25,7 @@ handler404 = 'Associacao.views.custom_page_not_found'
 
 
 urlpatterns = [
+    path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
     path('', include('aprepi.urls')),
     path('tinymce/', include('tinymce.urls')),

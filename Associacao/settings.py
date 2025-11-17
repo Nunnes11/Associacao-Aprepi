@@ -1,5 +1,15 @@
 from pathlib import Path
 import os
+try:
+    import pymysql
+    pymysql.install_as_MySQLdb()
+except ImportError:
+    pass
+
+from dotenv import load_dotenv
+
+# Carrega variáveis do .env
+load_dotenv(os.path.join(Path(__file__).resolve().parent.parent, '.env'))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -11,10 +21,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-3@g)$r-6f6jt7$ug)xp@y(!^5*1r1zjxlcou8#)$cwq4u(d78g'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+SECRET_KEY = os.getenv('SECRET_KEY')
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
 
 # Application definition
@@ -46,7 +55,7 @@ ROOT_URLCONF = 'Associacao.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -58,22 +67,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Associacao.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'aprepi',
-        'USER': 'root',
-        'PASSWORD': 'Admin123!',
-        'HOST': 'localhost',
-        'PORT': 3306
-    }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -109,11 +104,27 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
+# Configuração do banco de dados via .env
+DATABASES = {
+    'default': {
+        'ENGINE': os.getenv('DB_ENGINE'),
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': int(os.getenv('DB_PORT', 3306)),
+    }
+}
+
+
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+
+# Diretório para arquivos estáticos coletados (necessário para collectstatic)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -125,35 +136,37 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = '/login/'
 
+
+
 # Customização do 'Admin do Django' usando JAZZMIN
 JAZZMIN_SETTINGS = {
-"site_title": "Aprepi",
-"site_header": "Painel Administrativo",
-"site_brand": "Aprepi",
-"welcome_sign": "Bem-vindo ao painel administrativo!",
-"copyright": "Aprepi © 2025",
+    "site_title": "Aprepi",
+    "site_header": "Painel Administrativo",
+    "site_brand": "Aprepi",
+    "welcome_sign": "Bem-vindo ao painel administrativo!",
+    "copyright": "Aprepi © 2025",
 
-# Logo e ícone (coloque os arquivos em static/images)
-"site_logo": "logo/logo.png",
-"site_logo_classes": "img-circle",
-"site_icon": "images/favicon.ico",
+    # Logo e ícone (coloque os arquivos em static/images)
+    "site_logo": "logo/logo.png",
+    "site_logo_classes": "img-circle",
+    "site_icon": "favicon/favicon.ico",
 
-# Ícones para apps e modelos
-"icons": {
-"auth": "fas fa-users-cog",
-"auth.User": "fas fa-user",
-"auth.Group": "fas fa-users",
-# exemplo para um app "noticias"
-"noticias.Noticia": "fas fa-newspaper",
-},
+    # Ícones para apps e modelos
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "auth.User": "fas fa-user",
+        "auth.Group": "fas fa-users",
+        # exemplo para um app "noticias"
+        "noticias.Noticia": "fas fa-newspaper",
+    },
 
-# Ordem e agrupamento de apps
-"order_with_respect_to": ["auth", "noticias"],
+    # Ordem e agrupamento de apps
+    "order_with_respect_to": ["auth", "noticias"],
 
-"custom_css": "css/custom_admin.css",
+    "custom_css": "css/custom_admin.css",
 
-# Mostrar ou não o builder de UI
-"show_ui_builder": True,
+    # Mostrar ou não o builder de UI
+    "show_ui_builder": True,
 }
 
 JAZZMIN_UI_TWEAKS = {
