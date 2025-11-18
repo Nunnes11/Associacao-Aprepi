@@ -138,12 +138,11 @@ LOGIN_URL = '/login/'
 
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,
     'handlers': {
         'file': {
             'level': 'ERROR',
             'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'django-error.log',
+            'filename': '/var/www/Associacao-Aprepi/django.log',
         },
     },
     'loggers': {
@@ -154,7 +153,6 @@ LOGGING = {
         },
     },
 }
-
 
 
 # Customização do 'Admin do Django' usando JAZZMIN
