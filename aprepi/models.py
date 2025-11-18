@@ -314,7 +314,8 @@ class Documents(models.Model):
             elif ext == '.pdf':
                 # Usa um ícone padrão para PDF
                 from django.core.files import File
-                icon_path = os.path.join('static', 'img', 'pdf_icon.png')
+                from django.conf import settings
+                icon_path = os.path.join(settings.BASE_DIR, 'static', 'img', 'pdf_icon.png')
                 if os.path.exists(icon_path):
                     try:
                         with open(icon_path, 'rb') as f:
