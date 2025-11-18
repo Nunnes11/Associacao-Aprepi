@@ -1,11 +1,11 @@
-from pathlib import Path
+
 import os
 try:
     import pymysql
     pymysql.install_as_MySQLdb()
 except ImportError:
     pass
-
+from pathlib import Path
 from dotenv import load_dotenv
 
 # Carrega variáveis do .env
@@ -136,13 +136,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = '/login/'
 
+
 LOGGING = {
     'version': 1,
+    'disable_existing_loggers': False,
     'handlers': {
         'file': {
             'level': 'ERROR',
             'class': 'logging.FileHandler',
-            'filename': '/var/www/Associacao-Aprepi/django.log',
+            'filename': os.path.join(BASE_DIR, 'django.log'),
         },
     },
     'loggers': {
@@ -153,7 +155,6 @@ LOGGING = {
         },
     },
 }
-
 
 # Customização do 'Admin do Django' usando JAZZMIN
 JAZZMIN_SETTINGS = {
