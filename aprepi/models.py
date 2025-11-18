@@ -339,22 +339,27 @@ class Ata(models.Model):
     thumbnail = models.ImageField(upload_to='thumbnails/', blank=True, null=True)
 
     def save(self, *args, **kwargs):
+        import logging
+        logger = logging.getLogger('django')
         super().save(*args, **kwargs)
 
         if self.file and not self.thumbnail:
-            # Caminho do PDF salvo
-            pdf_path = self.file.path
+            try:
+                # Caminho do PDF salvo
+                pdf_path = self.file.path
 
-            # Converte a primeira página do PDF em imagem
-            images = convert_from_path(pdf_path, first_page=1, last_page=1)
-            if images:
-                img_io = BytesIO()
-                images[0].save(img_io, format='PNG')
+                # Converte a primeira página do PDF em imagem
+                images = convert_from_path(pdf_path, first_page=1, last_page=1)
+                if images:
+                    img_io = BytesIO()
+                    images[0].save(img_io, format='PNG')
 
-                # Salva como ImageField
-                img_name = os.path.splitext(os.path.basename(self.file.name))[0] + '.png'
-                self.thumbnail.save(img_name, ContentFile(img_io.getvalue()), save=False)
-                super().save(update_fields=['thumbnail'])
+                    # Salva como ImageField
+                    img_name = os.path.splitext(os.path.basename(self.file.name))[0] + '.png'
+                    self.thumbnail.save(img_name, ContentFile(img_io.getvalue()), save=False)
+                    super().save(update_fields=['thumbnail'])
+            except Exception as e:
+                logger.error(f'Erro ao gerar thumbnail de ata PDF: {e}', exc_info=True)
 
     def __str__(self):
         return self.title
