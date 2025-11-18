@@ -293,6 +293,8 @@ class Documents(models.Model):
     thumbnail = models.ImageField(upload_to='thumbnails/', blank=True, null=True)
 
     def save(self, *args, **kwargs):
+        import logging
+        logger = logging.getLogger('django')
         super().save(*args, **kwargs)
 
         if self.file and not self.thumbnail:
@@ -307,16 +309,19 @@ class Documents(models.Model):
                     img_name = os.path.splitext(os.path.basename(self.file.name))[0] + '_thumb.png'
                     self.thumbnail.save(img_name, ContentFile(img_io.getvalue()), save=False)
                     super().save(update_fields=['thumbnail'])
-                except Exception:
-                    pass
+                except Exception as e:
+                    logger.error(f'Erro ao gerar thumbnail de imagem para documento: {e}', exc_info=True)
             elif ext == '.pdf':
                 # Usa um ícone padrão para PDF
                 from django.core.files import File
                 icon_path = os.path.join('static', 'img', 'pdf_icon.png')
                 if os.path.exists(icon_path):
-                    with open(icon_path, 'rb') as f:
-                        self.thumbnail.save('pdf_icon.png', File(f), save=False)
-                        super().save(update_fields=['thumbnail'])
+                    try:
+                        with open(icon_path, 'rb') as f:
+                            self.thumbnail.save('pdf_icon.png', File(f), save=False)
+                            super().save(update_fields=['thumbnail'])
+                    except Exception as e:
+                        logger.error(f'Erro ao salvar ícone PDF como thumbnail: {e}', exc_info=True)
 
     def __str__(self):
         return self.title
