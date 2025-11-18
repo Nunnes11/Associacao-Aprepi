@@ -1,0 +1,20 @@
+/* style_site.css - exemplo básico */
+body {
+    background: #f6f8fa;
+    font-family: Arial, sans-serif;
+}
+
+h1, h2, h3 {
+    color: #2a5d84;
+}
+
+a {
+    color: #4a90e2;
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
