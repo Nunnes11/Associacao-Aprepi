@@ -13,8 +13,24 @@ a {
     text-decoration: none;
 }
 
+/* Container padrão das páginas */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+}
+
+/* Espaço entre o menu fixo e o conteúdo das páginas */
+main,
+.page-content,
+.content-wrapper {
+    padding-top: 80px; /* ajuste se o menu for mais alto/baixo */
+}
+
+@media (max-width: 768px) {
+    main,
+    .page-content,
+    .content-wrapper {
+        padding-top: 70px;
+    }
 }
