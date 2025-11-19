@@ -10,6 +10,37 @@
 <main class="main-content" style="padding-top: 100px;">
   <div class="container"> <!-- 🔹 Novo container pai -->
 
+    {% if carousel_images %}
+    <section class="section carousel-section">
+      <div id="receptionCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          {% for image in carousel_images %}
+          <div class="carousel-item{% if forloop.first %} active{% endif %}">
+            <img src="{{ image.url }}" class="d-block w-100" alt="{{ image.alt }}" />
+          </div>
+          {% endfor %}
+        </div>
+
+        {% if carousel_images|length > 1 %}
+        <div class="carousel-indicators">
+          {% for image in carousel_images %}
+          <button type="button" data-bs-target="#receptionCarousel" data-bs-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}" {% if forloop.first %}aria-current="true"{% endif %} aria-label="Slide {{ forloop.counter }}"></button>
+          {% endfor %}
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#receptionCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#receptionCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Próximo</span>
+        </button>
+        {% endif %}
+      </div>
+    </section>
+    {% endif %}
+
     <!-- Notícias Recentes -->
     <section class="section news-section">
       <h2 class="section-title">Notícias Recentes</h2>

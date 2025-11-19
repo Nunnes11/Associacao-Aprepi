@@ -9,6 +9,7 @@
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/style_home.css' %}" rel="stylesheet">
     <link href="{% static 'css/style_site.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style_about.css' %}" rel="stylesheet">
 
     <link rel="icon" href="{% static 'favicon/favicon.ico' %}" type="image/x-icon">
 
@@ -18,11 +19,15 @@
     <!--Incluir o MENU-->
     {% include 'aprepi/menu_home.html' %}
 
-    <div>
+    <div class="page-wrapper">
+        <main class="main-content">
+            {% block content %}
+            {% endblock content %}
+        </main>
 
-    {% block content %}
-    {% endblock content %}
-
+        <footer class="page-footer">
+            {% include 'aprepi/footer.html' %}
+        </footer>
     </div>
 
     <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>

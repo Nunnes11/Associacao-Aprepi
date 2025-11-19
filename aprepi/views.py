@@ -81,12 +81,23 @@ def reception_page(request):
     news = Recent_News.objects.all().order_by('-created_at')[:4]
     testimonials = Testimonials.objects.all().order_by('-id')[:4]
 
+    carousel = Carousel.objects.first()
+    carousel_images = []
+    if carousel:
+        for index, image in enumerate([carousel.image1, carousel.image2, carousel.image3], start=1):
+            if image:
+                carousel_images.append({
+                    'url': image.url,
+                    'alt': f'Imagem {index} do carrossel'
+                })
+
     return render(request, 'aprepi/reception_page.html', {
         'user_name': first_name,
         'user_avatar_url': avatar_url,
         'news': news,
         'testimonials': testimonials,
         'current_user': user,
+        'carousel_images': carousel_images,
     })
 
 #-------------------------NAVBAR------------------------#

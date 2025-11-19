@@ -1,18 +1,16 @@
-
 {% load static %}
 
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm" style="min-height: 70px;">
-    <div class="container" style="max-width: 1100px;">
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm fixed-top">
+    <div class="container-fluid px-4">
         <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
-            <img src="{% static 'logo/logo.png' %}" style="width: 70px; margin-right: 10px;">
-            <span class="fw-bold text-primary" style="font-size: 1.3rem;">APREPI</span>
+            <img src="{% static 'logo/logo.png' %}" alt="APREPI" width="60" height="60" class="d-inline-block align-top me-2">
+            <span class="fw-bold text-primary">APREPI</span>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
-            <ul class="navbar-nav mb-2 mb-lg-0 mx-auto">
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">Sobre</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contato</a></li>
@@ -28,7 +26,7 @@
                 <li class="nav-item"><a class="nav-link" href="{% url 'director' %}">Diretoria</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'contribute' %}">Contribua</a></li>
             </ul>
-            <a class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow-sm" href="/admin/" style="font-size: 1rem;">Login</a>
+            <a href="/admin/" class="btn btn-primary ms-lg-3">Login</a>
         </div>
     </div>
 </nav>
